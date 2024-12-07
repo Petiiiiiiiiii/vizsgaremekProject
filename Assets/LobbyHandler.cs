@@ -1,10 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LobbyHandler : MonoBehaviour
 {
     [SerializeField] Animator animator;
+    [SerializeField] Canvas LobbyUI;
+    [SerializeField] Canvas SkillsUI;
+
+    private float timer = 0f;
+    private bool waiting = false;
 
     void Start()
     {
@@ -13,7 +19,16 @@ public class LobbyHandler : MonoBehaviour
 
     void Update()
     {
-        
+        if (waiting)
+        {
+            timer += Time.deltaTime;
+            if (timer >= 2.55f)
+            {
+                waiting = false;
+                LobbyUI.gameObject.SetActive(false);
+                SkillsUI.gameObject.SetActive(true);
+            }
+        }
     }
 
     public void PlayButton() 
@@ -26,7 +41,7 @@ public class LobbyHandler : MonoBehaviour
     {
         animator.SetBool("Play", false);
         animator.SetBool("Skills", true);
-
+        waiting = true;
         //back fuggvenyre false
     }
 }
