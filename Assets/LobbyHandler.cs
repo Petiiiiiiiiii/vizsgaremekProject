@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class LobbyHandler : MonoBehaviour
 {
     [SerializeField] Animator animator;
     [SerializeField] Canvas LobbyUI;
     [SerializeField] Canvas SkillsUI;
+    [SerializeField] Canvas PlayUI;
 
     private float timer = 0f;
     private bool waiting = false;
@@ -25,23 +27,40 @@ public class LobbyHandler : MonoBehaviour
             if (timer >= 2.55f)
             {
                 waiting = false;
-                LobbyUI.gameObject.SetActive(false);
+                Debug.Log("mukodik");
                 SkillsUI.gameObject.SetActive(true);
+                Debug.Log("lefutott");
+                timer = 0f;
             }
         }
     }
 
     public void PlayButton() 
     {
-        animator.SetBool("Skills", false);
         animator.SetBool("Play",true);
+        PlayUI.gameObject.SetActive(true);
+        LobbyUI.gameObject.SetActive(false);
+    }
+
+    public void PlayBackButton() 
+    {
+        animator.SetBool("Play", false);
+        PlayUI.gameObject.SetActive(false);
+        LobbyUI.gameObject.SetActive(true);
     }
 
     public void SkillsButton() 
     {
-        animator.SetBool("Play", false);
         animator.SetBool("Skills", true);
+        LobbyUI.gameObject.SetActive(false);
         waiting = true;
-        //back fuggvenyre false
+        //itt nemjo meg
+    }
+
+    public void SkillsBackButton() 
+    {
+        animator.SetBool("Skills",false);
+        SkillsUI.gameObject.SetActive(false);
+        LobbyUI.gameObject.SetActive(true);
     }
 }
