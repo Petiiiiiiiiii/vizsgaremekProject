@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ShootingSango : MonoBehaviour
 {
+    [SerializeField] Animator animator;
+
     public GameObject bulletPrefab;
 
     public float bulletSpeed = 20f;
@@ -20,6 +22,16 @@ public class ShootingSango : MonoBehaviour
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
+        }
+
+        if (Input.GetMouseButton(1)) 
+        {
+            animator.SetBool("IsScopeing", true);
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            animator.SetBool("IsScopeing", false);
         }
     }
 
