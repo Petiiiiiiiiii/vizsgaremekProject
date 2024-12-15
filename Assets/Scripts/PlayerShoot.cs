@@ -21,31 +21,33 @@ public class PlayerShoot : MonoBehaviour
     
     void Update()
     {
-        if (fireMode)
+        timer += Time.deltaTime;
+        if (timer >= fireRate)
         {
-            
-            if (Input.GetButton("Fire1"))
+            if (fireMode)
             {
-                timer += Time.deltaTime;
-                if (timer >= fireRate)
+
+                if (Input.GetButton("Fire1"))
                 {
                     Shoot();
                 }
-                
             }
-        }
-        else
-        {
-            if (Input.GetButtonDown("Fire1"))
+            else
             {
-                Shoot();
+                if (Input.GetButtonDown("Fire1"))
+                {
+                    Shoot();
+                }
             }
+            
         }
+
         if (Input.GetKeyDown("b"))
         {
             fireMode = !fireMode;
         }
-        
+
+
 
         void Shoot()
         {
@@ -53,17 +55,17 @@ public class PlayerShoot : MonoBehaviour
             muzzleFlash.Play();
             if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
             {
-                Debug.Log(hit.transform.name);
+
+                Target target = hit.transform.GetComponent<Target>();
+                if (target != null)
+                {
+                    target.TakeDamage(damage);
+                }
+
+                GameObject impactEffect = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactEffect, 1f);
+                
             };
-
-            Target target = hit.transform.GetComponent<Target>();
-            if (target != null)
-            {
-                target.TakeDamage(damage);
-            }
-
-            GameObject impactEffect = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactEffect);
             timer = 0f;
         }
     }
