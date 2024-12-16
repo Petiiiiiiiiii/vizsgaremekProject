@@ -5,41 +5,57 @@ using UnityEngine;
 
 public class PlayerShoot : MonoBehaviour
 {
+    [SerializeField] Animator animator;
+    [SerializeField] GameObject crosshair;
     [SerializeField] GameObject Weapon;
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 20f;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] GameObject impact;
     [SerializeField] bool fireMode = true;
-    [SerializeField] double fireRate = 0.2f;
-    private float timer = 0f;
+    public float fireRate = 5f; //hány ammo / másodperc (5f az egynelõ 5 ammo / másodperc)
+    private float nextTimeToFire = 0f;
+    private GameObject mainCamera;
+    public GameObject scopeSight;
+
     void Start()
     {
-        
+        mainCamera = Weapon;
     }
 
     
     void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= fireRate)
+        if (fireMode)
         {
-            if (fireMode)
+            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
             {
+                nextTimeToFire = Time.time + 1f / fireRate;
+                Shoot();
+            }
+        }
+        else 
+        {
+            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+            {
+                nextTimeToFire = Time.time + 1f / fireRate;
+                Shoot();
+            }
+        }
+        
 
-                if (Input.GetButton("Fire1"))
-                {
-                    Shoot();
-                }
-            }
-            else
-            {
-                if (Input.GetButtonDown("Fire1"))
-                {
-                    Shoot();
-                }
-            }
-            
+        if (Input.GetMouseButton(1))
+        {
+            animator.SetBool("IsScopeing", true);
+            crosshair.SetActive(false);
+            Weapon = scopeSight;
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            animator.SetBool("IsScopeing", false);
+            crosshair.SetActive(true);
+            Weapon = mainCamera;
         }
 
         if (Input.GetKeyDown("b"))
@@ -47,26 +63,24 @@ public class PlayerShoot : MonoBehaviour
             fireMode = !fireMode;
         }
 
+    }
 
-
-        void Shoot()
+    void Shoot()
+    {
+        RaycastHit hit;
+        muzzleFlash.Play();
+        if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
         {
-            RaycastHit hit;
-            muzzleFlash.Play();
-            if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
+
+            Target target = hit.transform.GetComponent<Target>();
+            if (target != null)
             {
+                target.TakeDamage(damage);
+            }
 
-                Target target = hit.transform.GetComponent<Target>();
-                if (target != null)
-                {
-                    target.TakeDamage(damage);
-                }
+            GameObject impactEffect = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+            Destroy(impactEffect, 1f);
 
-                GameObject impactEffect = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-                Destroy(impactEffect, 1f);
-                
-            };
-            timer = 0f;
-        }
+        };
     }
 }
