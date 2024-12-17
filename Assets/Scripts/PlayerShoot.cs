@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.Terrain;
 
 public class PlayerShoot : MonoBehaviour
 {
@@ -11,8 +12,8 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] float range = 100f;
     [SerializeField] float damage = 20f;
     [SerializeField] ParticleSystem muzzleFlash;
-    [SerializeField] GameObject impact;
     [SerializeField] bool fireMode = true;
+    [SerializeField] List<GameObject> impact;
     public float fireRate = 5f; //hány ammo / másodperc (5f az egynelõ 5 ammo / másodperc)
     private float nextTimeToFire = 0f;
     private GameObject mainCamera;
@@ -21,6 +22,7 @@ public class PlayerShoot : MonoBehaviour
     void Start()
     {
         mainCamera = Weapon;
+        impact = new List<GameObject>();
     }
 
     
@@ -67,20 +69,55 @@ public class PlayerShoot : MonoBehaviour
 
     void Shoot()
     {
-        RaycastHit hit;
-        muzzleFlash.Play();
-        if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
-        {
+            RaycastHit hit;
+            muzzleFlash.Play();
 
-            Target target = hit.transform.GetComponent<Target>();
-            if (target != null)
+            if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
             {
-                target.TakeDamage(damage);
+                MaterialType materialType = hit.transform.GetComponent<MaterialType>();
+
+                if (materialType != null)
+                {
+                    GameObject impactEffect = null;
+                    
+                    switch (materialType.materialType)
+                    {
+                        case MaterialType.Material.Wood:
+                            impactEffect = Instantiate(impact[0], hit.point, Quaternion.LookRotation(hit.normal));
+                            break;
+
+                        case MaterialType.Material.Concrete:
+                            impactEffect = Instantiate(impact[1], hit.point, Quaternion.LookRotation(hit.normal));
+                            break;
+
+                        case MaterialType.Material.Metal:
+                            impactEffect = Instantiate(impact[2], hit.point, Quaternion.LookRotation(hit.normal));
+                            break;
+
+                        case MaterialType.Material.Dirt:
+                            impactEffect = Instantiate(impact[3], hit.point, Quaternion.LookRotation(hit.normal));
+                            break;
+
+                        case MaterialType.Material.Sand:
+                            impactEffect = Instantiate(impact[4], hit.point, Quaternion.LookRotation(hit.normal));
+                            break;
+
+                        case MaterialType.Material.Blood:
+                            impactEffect = Instantiate(impact[5], hit.point, Quaternion.LookRotation(hit.normal));
+                            break;
+                    }
+
+                    if (impactEffect != null)
+                    {
+                        Destroy(impactEffect, 1f);
+                    }
+                }
+
+                Target target = hit.transform.GetComponent<Target>();
+                if (target != null)
+                {
+                    target.TakeDamage(damage);
+                }
             }
-
-            GameObject impactEffect = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactEffect, 1f);
-
-        };
     }
 }
