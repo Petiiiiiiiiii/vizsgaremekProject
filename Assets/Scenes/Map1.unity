@@ -151,6 +151,30 @@ PrefabInstance:
       propertyPath: crosshair
       value: 
       objectReference: {fileID: 1772815660}
+    - target: {fileID: 8342020049687817155, guid: e59ee73e2fd00e346a8e5f431d1ba9cf, type: 3}
+      propertyPath: dirtImpact
+      value: 
+      objectReference: {fileID: 100002, guid: 263ce41733ad0334eae184e09bf74848, type: 3}
+    - target: {fileID: 8342020049687817155, guid: e59ee73e2fd00e346a8e5f431d1ba9cf, type: 3}
+      propertyPath: sandImpact
+      value: 
+      objectReference: {fileID: 100002, guid: 466cf0069de726c458227f753b9e8211, type: 3}
+    - target: {fileID: 8342020049687817155, guid: e59ee73e2fd00e346a8e5f431d1ba9cf, type: 3}
+      propertyPath: woodImpact
+      value: 
+      objectReference: {fileID: 100002, guid: 30603e56ad4ce14419dd05073a2b20d8, type: 3}
+    - target: {fileID: 8342020049687817155, guid: e59ee73e2fd00e346a8e5f431d1ba9cf, type: 3}
+      propertyPath: bloodImpact
+      value: 
+      objectReference: {fileID: 100002, guid: cc095dd43daad234691e438388a84022, type: 3}
+    - target: {fileID: 8342020049687817155, guid: e59ee73e2fd00e346a8e5f431d1ba9cf, type: 3}
+      propertyPath: metalImpact
+      value: 
+      objectReference: {fileID: 100002, guid: 8f54dd54e8222be489600f99220bc0a6, type: 3}
+    - target: {fileID: 8342020049687817155, guid: e59ee73e2fd00e346a8e5f431d1ba9cf, type: 3}
+      propertyPath: concreteImpact
+      value: 
+      objectReference: {fileID: 100002, guid: 96be0b2f16dc5a342b8c18661ad72a14, type: 3}
     - target: {fileID: 9115022975890293399, guid: e59ee73e2fd00e346a8e5f431d1ba9cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 189.31215
@@ -2367,8 +2391,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 23.81361, y: 9.477785, z: 12.173889}
-  m_Center: {x: 0, y: 4.7388926, z: 0}
+  m_Size: {x: 17.467733, y: 9.477785, z: 12.218811}
+  m_Center: {x: 3.1729383, y: 4.7388926, z: -0.022460938}
 --- !u!1 &1083359034182227534
 GameObject:
   m_ObjectHideFlags: 0
@@ -4947,6 +4971,7 @@ GameObject:
   - component: {fileID: 6186749359447095631}
   - component: {fileID: 7425489789547226514}
   - component: {fileID: 3632301463872826758}
+  - component: {fileID: 7425489789547226515}
   m_Layer: 0
   m_Name: train body
   m_TagString: Untagged
@@ -6164,6 +6189,7 @@ GameObject:
   - component: {fileID: 681090825396068388}
   - component: {fileID: 3357239143419761902}
   - component: {fileID: 1300480010013967917}
+  - component: {fileID: 4529605181994545026}
   m_Layer: 0
   m_Name: stone large brown 2
   m_TagString: Untagged
@@ -6439,6 +6465,7 @@ GameObject:
   - component: {fileID: 451176427475279126}
   - component: {fileID: 2424645085583993308}
   - component: {fileID: 6214943776830809551}
+  - component: {fileID: 6214943776830809552}
   m_Layer: 0
   m_Name: cactus 2 (1)
   m_TagString: Untagged
@@ -6781,6 +6808,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4468289229343404570}
   m_LocalEulerAnglesHint: {x: 0, y: 17.226, z: 0}
+--- !u!114 &4529605181994545026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861752321394210107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 1
 --- !u!33 &4577158856537214775
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8431,6 +8471,7 @@ GameObject:
   - component: {fileID: 415485646752771565}
   - component: {fileID: 7770659993788598972}
   - component: {fileID: 8819016082248551865}
+  - component: {fileID: 8819016082248551866}
   m_Layer: 0
   m_Name: passenger wagon body
   m_TagString: Untagged
@@ -8865,6 +8906,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.7929615, y: 2.4537072, z: 0.38562685}
   m_Center: {x: 0, y: 1.2268536, z: 0.00000026077032}
+--- !u!114 &6214943776830809552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226326622754490377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 5
 --- !u!1 &6226809105918393627
 GameObject:
   m_ObjectHideFlags: 0
@@ -10278,6 +10332,7 @@ GameObject:
   - component: {fileID: 7193167464695602756}
   - component: {fileID: 4915596509988579982}
   - component: {fileID: 2393253722147749298}
+  - component: {fileID: 7193167464695602757}
   m_Layer: 0
   m_Name: land wild west railway station
   m_TagString: Untagged
@@ -10962,6 +11017,7 @@ GameObject:
   - component: {fileID: 6786396150392875817}
   - component: {fileID: 8776082040021721059}
   - component: {fileID: 7217092361135926055}
+  - component: {fileID: 8776082040021721060}
   m_Layer: 0
   m_Name: cactus 5 (1)
   m_TagString: Untagged
@@ -11006,6 +11062,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6861032320966282075}
   m_Mesh: {fileID: 8515268588606497379, guid: e2a598321feae8849b15ea8f560c801b, type: 3}
+--- !u!114 &7193167464695602757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861032320966282075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 4
 --- !u!1 &7215536264337887956
 GameObject:
   m_ObjectHideFlags: 0
@@ -11631,6 +11700,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7425489789547226515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2631571559349526475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 2
 --- !u!23 &7471112980444869309
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11834,6 +11916,7 @@ GameObject:
   - component: {fileID: 6328474594103290785}
   - component: {fileID: 8086131032602746731}
   - component: {fileID: 2182837201894972560}
+  - component: {fileID: 8086131032602746732}
   m_Layer: 0
   m_Name: railway (1)
   m_TagString: Untagged
@@ -12786,6 +12869,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8086131032602746732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7725724108153110206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 2
 --- !u!33 &8089182341278500726
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13396,6 +13492,7 @@ GameObject:
   - component: {fileID: 1551605748511068605}
   - component: {fileID: 7421892044957536516}
   - component: {fileID: 2603004841392405833}
+  - component: {fileID: 8770599807439386476}
   m_Layer: 0
   m_Name: freight wagon body
   m_TagString: Untagged
@@ -13403,6 +13500,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8770599807439386476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8770599807439386475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 2
 --- !u!33 &8772982673316123484
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -13493,6 +13603,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8776082040021721060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7118524624052272694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 5
 --- !u!65 &8819016082248551865
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13514,6 +13637,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.59746, y: 4.2805667, z: 12.253391}
   m_Center: {x: 0, y: 2.1402833, z: -0.000006914139}
+--- !u!114 &8819016082248551866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5765922185696971488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4661050ab14f7c04792d2e373aed3d48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialType: 2
 --- !u!1 &8889210060118761942
 GameObject:
   m_ObjectHideFlags: 0
