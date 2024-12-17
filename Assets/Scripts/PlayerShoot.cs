@@ -13,7 +13,12 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] float damage = 20f;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] bool fireMode = true;
-    [SerializeField] List<GameObject> impact;
+    [SerializeField] GameObject concreteImpact;
+    [SerializeField] GameObject woodImpact;
+    [SerializeField] GameObject sandImpact;
+    [SerializeField] GameObject metalImpact;
+    [SerializeField] GameObject bloodImpact;
+    [SerializeField] GameObject dirtImpact;
     public float fireRate = 5f; //hány ammo / másodperc (5f az egynelõ 5 ammo / másodperc)
     private float nextTimeToFire = 0f;
     private GameObject mainCamera;
@@ -22,7 +27,6 @@ public class PlayerShoot : MonoBehaviour
     void Start()
     {
         mainCamera = Weapon;
-        impact = new List<GameObject>();
     }
 
     
@@ -83,27 +87,27 @@ public class PlayerShoot : MonoBehaviour
                     switch (materialType.materialType)
                     {
                         case MaterialType.Material.Wood:
-                            impactEffect = Instantiate(impact[0], hit.point, Quaternion.LookRotation(hit.normal));
+                            impactEffect = Instantiate(woodImpact, hit.point, Quaternion.LookRotation(hit.normal));
                             break;
 
                         case MaterialType.Material.Concrete:
-                            impactEffect = Instantiate(impact[1], hit.point, Quaternion.LookRotation(hit.normal));
+                            impactEffect = Instantiate(concreteImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
                             break;
 
                         case MaterialType.Material.Metal:
-                            impactEffect = Instantiate(impact[2], hit.point, Quaternion.LookRotation(hit.normal));
+                            impactEffect = Instantiate(metalImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
                             break;
 
                         case MaterialType.Material.Dirt:
-                            impactEffect = Instantiate(impact[3], hit.point, Quaternion.LookRotation(hit.normal));
+                            impactEffect = Instantiate(dirtImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
                             break;
 
                         case MaterialType.Material.Sand:
-                            impactEffect = Instantiate(impact[4], hit.point, Quaternion.LookRotation(hit.normal));
+                            impactEffect = Instantiate(sandImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
                             break;
 
                         case MaterialType.Material.Blood:
-                            impactEffect = Instantiate(impact[5], hit.point, Quaternion.LookRotation(hit.normal));
+                            impactEffect = Instantiate(bloodImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
                             break;
                     }
 

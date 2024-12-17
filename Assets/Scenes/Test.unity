@@ -6402,13 +6402,12 @@ MonoBehaviour:
   damage: 20
   muzzleFlash: {fileID: 596543532}
   fireMode: 1
-  impact:
-  - {fileID: 100002, guid: 30603e56ad4ce14419dd05073a2b20d8, type: 3}
-  - {fileID: 100002, guid: 96be0b2f16dc5a342b8c18661ad72a14, type: 3}
-  - {fileID: 100002, guid: 8f54dd54e8222be489600f99220bc0a6, type: 3}
-  - {fileID: 100002, guid: 263ce41733ad0334eae184e09bf74848, type: 3}
-  - {fileID: 100002, guid: 466cf0069de726c458227f753b9e8211, type: 3}
-  - {fileID: 100002, guid: cc095dd43daad234691e438388a84022, type: 3}
+  concreteImpact: {fileID: 100002, guid: 96be0b2f16dc5a342b8c18661ad72a14, type: 3}
+  woodImpact: {fileID: 100002, guid: 30603e56ad4ce14419dd05073a2b20d8, type: 3}
+  sandImpact: {fileID: 100002, guid: 466cf0069de726c458227f753b9e8211, type: 3}
+  metalImpact: {fileID: 100002, guid: 8f54dd54e8222be489600f99220bc0a6, type: 3}
+  bloodImpact: {fileID: 100002, guid: cc095dd43daad234691e438388a84022, type: 3}
+  dirtImpact: {fileID: 100002, guid: 263ce41733ad0334eae184e09bf74848, type: 3}
   fireRate: 5
   scopeSight: {fileID: 0}
 --- !u!1 &1860598055
