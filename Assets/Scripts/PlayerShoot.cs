@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Terrain;
@@ -19,36 +20,48 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] GameObject metalImpact;
     [SerializeField] GameObject bloodImpact;
     [SerializeField] GameObject dirtImpact;
-    public float fireRate = 5f; //hány ammo / másodperc (5f az egynelõ 5 ammo / másodperc)
+    public float fireRate = 5f;
     private float nextTimeToFire = 0f;
     private GameObject mainCamera;
     public GameObject scopeSight;
 
+    public int currentMag;
+    public int allAmmo;
+    private int maxMag;
+    public bool isReloading = false;
+
+    public TextMeshProUGUI allAmmoUI;
+    public TextMeshProUGUI currentAmmoUI;
+
     void Start()
     {
         mainCamera = Weapon;
+        currentMag = 30;
+        allAmmo = 210;
+        maxMag = 30;
     }
 
-    
     void Update()
     {
+        if (isReloading)
+            return;
+
         if (fireMode)
         {
-            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
             {
                 nextTimeToFire = Time.time + 1f / fireRate;
                 Shoot();
             }
         }
-        else 
+        else
         {
-            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
             {
                 nextTimeToFire = Time.time + 1f / fireRate;
                 Shoot();
             }
         }
-        
 
         if (Input.GetMouseButton(1))
         {
@@ -69,59 +82,89 @@ public class PlayerShoot : MonoBehaviour
             fireMode = !fireMode;
         }
 
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(Reload());
+        }
     }
 
     void Shoot()
     {
-            RaycastHit hit;
-            muzzleFlash.Play();
+        currentMag--;
+        currentAmmoUI.text = $"{currentMag}";
 
-            if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
+        RaycastHit hit;
+        muzzleFlash.Play();
+
+        if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
+        {
+            MaterialType materialType = hit.transform.GetComponent<MaterialType>();
+
+            if (materialType != null)
             {
-                MaterialType materialType = hit.transform.GetComponent<MaterialType>();
+                GameObject impactEffect = null;
 
-                if (materialType != null)
+                switch (materialType.materialType)
                 {
-                    GameObject impactEffect = null;
-                    
-                    switch (materialType.materialType)
-                    {
-                        case MaterialType.Material.Wood:
-                            impactEffect = Instantiate(woodImpact, hit.point, Quaternion.LookRotation(hit.normal));
-                            break;
+                    case MaterialType.Material.Wood:
+                        impactEffect = Instantiate(woodImpact, hit.point, Quaternion.LookRotation(hit.normal));
+                        break;
 
-                        case MaterialType.Material.Concrete:
-                            impactEffect = Instantiate(concreteImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                            break;
+                    case MaterialType.Material.Concrete:
+                        impactEffect = Instantiate(concreteImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        break;
 
-                        case MaterialType.Material.Metal:
-                            impactEffect = Instantiate(metalImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                            break;
+                    case MaterialType.Material.Metal:
+                        impactEffect = Instantiate(metalImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        break;
 
-                        case MaterialType.Material.Dirt:
-                            impactEffect = Instantiate(dirtImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                            break;
+                    case MaterialType.Material.Dirt:
+                        impactEffect = Instantiate(dirtImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        break;
 
-                        case MaterialType.Material.Sand:
-                            impactEffect = Instantiate(sandImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                            break;
+                    case MaterialType.Material.Sand:
+                        impactEffect = Instantiate(sandImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        break;
 
-                        case MaterialType.Material.Blood:
-                            impactEffect = Instantiate(bloodImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                            break;
-                    }
-
-                    if (impactEffect != null)
-                    {
-                        Destroy(impactEffect, 1f);
-                    }
+                    case MaterialType.Material.Blood:
+                        impactEffect = Instantiate(bloodImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        break;
                 }
 
-                Target target = hit.transform.GetComponent<Target>();
-                if (target != null)
+                if (impactEffect != null)
                 {
-                    target.TakeDamage(damage);
+                    Destroy(impactEffect, 1f);
                 }
             }
+
+            Target target = hit.transform.GetComponent<Target>();
+            if (target != null)
+            {
+                target.TakeDamage(damage);
+            }
+        }
+    }
+
+    IEnumerator Reload()
+    {
+        if (currentMag == maxMag || allAmmo <= 0)
+            yield break;
+
+        isReloading = true;
+        //animator.SetTrigger("Reload");
+
+        // Várakozási idõ a reload animációhoz (pl. 2 másodperc)
+        yield return new WaitForSeconds(2f);
+
+        int ammoNeeded = maxMag - currentMag;
+        int ammoToReload = Mathf.Min(ammoNeeded, allAmmo);
+
+        currentMag += ammoToReload;
+        allAmmo -= ammoToReload;
+
+        allAmmoUI.text = $"{allAmmo}";
+        currentAmmoUI.text = $"{currentMag}";
+
+        isReloading = false;
     }
 }
