@@ -116,7 +116,7 @@ public class PlayerShoot : MonoBehaviour
     void Shoot()
     {
         currentMag--;
-        currentAmmoUI.text = $"{currentMag}";
+        refreshUI();
 
         RaycastHit hit;
         muzzleFlash.Play();
@@ -195,9 +195,14 @@ public class PlayerShoot : MonoBehaviour
         currentMag += ammoToReload;
         allAmmo -= ammoToReload;
 
-        allAmmoUI.text = $"{allAmmo}";
-        currentAmmoUI.text = $"{currentMag}";
+        refreshUI();
 
         isReloading = false;
+    }
+
+    public void refreshUI() 
+    {
+        allAmmoUI.text = $"{allAmmo}";
+        currentAmmoUI.text = $"{currentMag}";
     }
 }

@@ -22,7 +22,8 @@ public class HealthSystem : MonoBehaviour
         {
             healthSlider.value = currentHealth / 100;
             healthUI.text = $"{currentHealth}";
-            if (currentHealth <= 75 && currentHealth > 25) healthUI.color = Color.yellow;
+            if (currentHealth > 75) healthUI.color = Color.white;
+            else if (currentHealth <= 75 && currentHealth > 25) healthUI.color = Color.yellow;
             else if (currentHealth <= 25) healthUI.color = Color.red;
         }
         else 
@@ -30,14 +31,18 @@ public class HealthSystem : MonoBehaviour
             Debug.Log("meghaltál");
         }
 
-        if (Input.GetKeyDown(KeyCode.J)) 
-        {
-            TakeDmg(15);
-        }
+        if (Input.GetKeyDown(KeyCode.J)) TakeDmg(15);
+
+        if (Input.GetKeyDown(KeyCode.K)) Heal(20);
     }
 
     public void TakeDmg(int dmg) 
     {
         currentHealth -= dmg;
+    }
+
+    public void Heal(float heal) 
+    {
+        currentHealth += heal;
     }
 }
