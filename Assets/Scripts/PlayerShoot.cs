@@ -33,6 +33,13 @@ public class PlayerShoot : MonoBehaviour
     public TextMeshProUGUI allAmmoUI;
     public TextMeshProUGUI currentAmmoUI;
 
+    public AudioSource oneShot;
+    public AudioSource emptyMag;
+    public AudioSource reloadAudio;
+
+    public bool waiting = false;
+    private float timer = 0f;
+
     void Start()
     {
         mainCamera = Weapon;
@@ -46,12 +53,23 @@ public class PlayerShoot : MonoBehaviour
         if (isReloading)
             return;
 
+        if (waiting)
+        {
+            timer += Time.deltaTime;
+            if (timer >= 0.5f)
+            {
+                waiting = false;
+                timer = 0f;
+            }
+        }
+
         if (fireMode)
         {
             if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
             {
                 nextTimeToFire = Time.time + 1f / fireRate;
                 Shoot();
+                oneShot.Play();
             }
         }
         else
@@ -60,6 +78,7 @@ public class PlayerShoot : MonoBehaviour
             {
                 nextTimeToFire = Time.time + 1f / fireRate;
                 Shoot();
+                oneShot.Play();
             }
         }
 
@@ -68,13 +87,16 @@ public class PlayerShoot : MonoBehaviour
             animator.SetBool("IsScopeing", true);
             crosshair.SetActive(false);
             Weapon = scopeSight;
+            scopeSight.SetActive(true);
         }
 
         if (Input.GetMouseButtonUp(1))
         {
             animator.SetBool("IsScopeing", false);
+            waiting = true;
             crosshair.SetActive(true);
             Weapon = mainCamera;
+            scopeSight.SetActive(false);
         }
 
         if (Input.GetKeyDown("b"))
@@ -82,9 +104,16 @@ public class PlayerShoot : MonoBehaviour
             fireMode = !fireMode;
         }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !waiting)
         {
-            StartCoroutine(Reload());
+            if (animator.GetBool("IsScopeing"))
+            {
+                Debug.Log("Scopeolás közbeni reload probalkozas");
+            }
+            else 
+            {
+                StartCoroutine(Reload());
+            }
         }
     }
 
@@ -108,26 +137,32 @@ public class PlayerShoot : MonoBehaviour
                 {
                     case MaterialType.Material.Wood:
                         impactEffect = Instantiate(woodImpact, hit.point, Quaternion.LookRotation(hit.normal));
+                        //hit.transform.GetComponent<AudioSource>().Play();
                         break;
 
                     case MaterialType.Material.Concrete:
                         impactEffect = Instantiate(concreteImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        //hit.transform.GetComponent<AudioSource>().Play();
                         break;
 
                     case MaterialType.Material.Metal:
                         impactEffect = Instantiate(metalImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        //hit.transform.GetComponent<AudioSource>().Play();
                         break;
 
                     case MaterialType.Material.Dirt:
                         impactEffect = Instantiate(dirtImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        //hit.transform.GetComponent<AudioSource>().Play();
                         break;
 
                     case MaterialType.Material.Sand:
                         impactEffect = Instantiate(sandImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        //hit.transform.GetComponent<AudioSource>().Play();
                         break;
 
                     case MaterialType.Material.Blood:
                         impactEffect = Instantiate(bloodImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
+                        //hit.transform.GetComponent<AudioSource>().Play();
                         break;
                 }
 
@@ -151,7 +186,9 @@ public class PlayerShoot : MonoBehaviour
             yield break;
 
         isReloading = true;
-        //animator.SetTrigger("Reload");
+        animator.SetTrigger("Reload");
+        reloadAudio.Play();
+
 
         // Várakozási idõ a reload animációhoz (pl. 2 másodperc)
         yield return new WaitForSeconds(2f);
