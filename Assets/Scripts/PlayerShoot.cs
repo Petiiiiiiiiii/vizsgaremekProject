@@ -63,6 +63,11 @@ public class PlayerShoot : MonoBehaviour
             }
         }
 
+        if (currentMag == 0 && Input.GetButtonDown("Fire1")) emptyMag.Play();
+
+        if (currentMag <= 5) currentAmmoUI.color = Color.red;
+        else currentAmmoUI.color = Color.white;
+
         if (fireMode)
         {
             if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
@@ -99,21 +104,12 @@ public class PlayerShoot : MonoBehaviour
             scopeSight.SetActive(false);
         }
 
-        if (Input.GetKeyDown("b"))
-        {
-            fireMode = !fireMode;
-        }
+        if (Input.GetKeyDown("b")) fireMode = !fireMode;
 
         if (Input.GetKeyDown(KeyCode.R) && !waiting)
         {
-            if (animator.GetBool("IsScopeing"))
-            {
-                Debug.Log("Scopeolás közbeni reload probalkozas");
-            }
-            else 
-            {
-                StartCoroutine(Reload());
-            }
+            if (animator.GetBool("IsScopeing")) Debug.Log("Scopeolás közbeni reload probalkozas");
+            else StartCoroutine(Reload());
         }
     }
 
