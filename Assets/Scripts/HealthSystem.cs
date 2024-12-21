@@ -38,7 +38,14 @@ public class HealthSystem : MonoBehaviour
 
     public void TakeDmg(int dmg) 
     {
-        currentHealth -= dmg;
+        if (currentHealth <= 0)
+        {
+            Debug.Log("meghalt");
+        }
+        else 
+        {
+            currentHealth -= dmg;
+        }    
     }
 
     public void Heal(float heal) 
