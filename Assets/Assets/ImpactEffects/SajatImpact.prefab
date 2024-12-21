@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2141378037950410376}
   - component: {fileID: 2524724029306714147}
   m_Layer: 0
-  m_Name: Impact
+  m_Name: SajatImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
