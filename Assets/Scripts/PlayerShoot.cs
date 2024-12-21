@@ -14,6 +14,7 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] float damage = 20f;
     [SerializeField] ParticleSystem muzzleFlash;
     [SerializeField] bool fireMode = true;
+    [SerializeField] TextMeshProUGUI fireModeText;
     [SerializeField] GameObject concreteImpact;
     [SerializeField] GameObject woodImpact;
     [SerializeField] GameObject sandImpact;
@@ -63,6 +64,9 @@ public class PlayerShoot : MonoBehaviour
             }
         }
 
+        if (fireMode) fireModeText.text = "[B] Full Auto";
+        else fireModeText.text = "[B] Semi Auto";
+
         if (currentMag == 0 && Input.GetButtonDown("Fire1")) emptyMag.Play();
 
         if (currentMag <= 5) currentAmmoUI.color = Color.red;
@@ -104,7 +108,10 @@ public class PlayerShoot : MonoBehaviour
             scopeSight.SetActive(false);
         }
 
-        if (Input.GetKeyDown("b")) fireMode = !fireMode;
+        if (Input.GetKeyDown("b"))
+        { 
+            fireMode = !fireMode;
+        }
 
         if (Input.GetKeyDown(KeyCode.R) && !waiting)
         {
