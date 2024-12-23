@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class AiPlayerFollow : MonoBehaviour
 {
+    public Animator aiAnimator;
     private Transform player;
     public float shootingDistance = 10f; // Mekkora távolságnál lõ az AI
     public GameObject bulletPrefab; // A lövedék prefabja
@@ -53,6 +54,7 @@ public class AiPlayerFollow : MonoBehaviour
                 if (!isShooting)
                 {
                     StartShooting();
+                    aiAnimator.SetBool("isShooting",true);
                 }
                 RotateTowardsPlayer();
                 HandleShooting();
@@ -60,6 +62,7 @@ public class AiPlayerFollow : MonoBehaviour
             else
             {
                 StopShooting();
+                aiAnimator.SetBool("isShooting",false);
                 ai.isStopped = false;
                 ai.destination = player.position;
                 Debug.Log("AI moving towards player. Destination: " + ai.destination);
