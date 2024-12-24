@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -53,16 +54,16 @@ public class AiPlayerFollow : MonoBehaviour
             {
                 if (!isShooting)
                 {
+                    aiAnimator.SetBool("isShooting", true);
                     StartShooting();
-                    aiAnimator.SetBool("isShooting",true);
                 }
                 RotateTowardsPlayer();
                 HandleShooting();
             }
             else
             {
+                aiAnimator.SetBool("isShooting", false);
                 StopShooting();
-                aiAnimator.SetBool("isShooting",false);
                 ai.isStopped = false;
                 ai.destination = player.position;
                 Debug.Log("AI moving towards player. Destination: " + ai.destination);
@@ -70,6 +71,7 @@ public class AiPlayerFollow : MonoBehaviour
         }
         else
         {
+            aiAnimator.SetBool("isShooting", false);
             StopShooting();
         }
     }
