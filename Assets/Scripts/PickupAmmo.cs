@@ -20,8 +20,7 @@ public class PickupAmmo : MonoBehaviour, IInteractable
     {
         if (player != null) 
         {
-            player.GetComponent<PlayerShoot>().allAmmo += 60;
-            player.GetComponent<PlayerShoot>().refreshUI();
+            player.GetComponent<EquippedWeapon>().weapon.allAmmo += 60;
         } 
         else Debug.Log("Nincs meg a player");
     }

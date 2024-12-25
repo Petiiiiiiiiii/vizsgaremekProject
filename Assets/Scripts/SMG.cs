@@ -3,53 +3,50 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Terrain;
 
-public class PlayerShoot : MonoBehaviour
+public class SMG : Weapon
 {
     [SerializeField] Animator animator;
     [SerializeField] GameObject crosshair;
-    [SerializeField] GameObject Weapon;
-    [SerializeField] float range = 100f;
-    [SerializeField] float damage = 20f;
     [SerializeField] ParticleSystem muzzleFlash;
-    [SerializeField] bool fireMode = true;
-    [SerializeField] TextMeshProUGUI fireModeText;
     [SerializeField] GameObject concreteImpact;
     [SerializeField] GameObject woodImpact;
     [SerializeField] GameObject sandImpact;
     [SerializeField] GameObject metalImpact;
     [SerializeField] GameObject bloodImpact;
     [SerializeField] GameObject dirtImpact;
-    public float fireRate = 5f;
-    private float nextTimeToFire = 0f;
-    private GameObject mainCamera;
+    [SerializeField] TextMeshProUGUI allAmmoUI;
+    [SerializeField] TextMeshProUGUI currentAmmoUI;
+    [SerializeField] AudioSource oneShot;
+    [SerializeField] AudioSource emptyMag;
+    [SerializeField] AudioSource reloadAudio;
+
+    public GameObject WeaponPOV;
     public GameObject scopeSight;
-
-    public int currentMag;
-    public int allAmmo;
-    private int maxMag;
-    public bool isReloading = false;
-
-    public TextMeshProUGUI allAmmoUI;
-    public TextMeshProUGUI currentAmmoUI;
-
-    public AudioSource oneShot;
-    public AudioSource emptyMag;
-    public AudioSource reloadAudio;
+    public GameObject mainCamera;
 
     public bool waiting = false;
     private float timer = 0f;
+    private float nextTimeToFire = 0f;
 
-    void Start()
+    public bool fireMode = true;
+    public TextMeshProUGUI fireModeText;
+
+    private void Start()
     {
-        mainCamera = Weapon;
+        fireSpeed = 8f;
+        damage = 20f;
+        headshotDamage = 50f;
+        range = 100f;
+
+        maxMag = 30;
         currentMag = 30;
         allAmmo = 210;
-        maxMag = 30;
+
+        WeaponPOV = mainCamera;
     }
 
-    void Update()
+    private void Update()
     {
         if (isReloading)
             return;
@@ -64,19 +61,11 @@ public class PlayerShoot : MonoBehaviour
             }
         }
 
-        if (fireMode) fireModeText.text = "[B] Full Auto";
-        else fireModeText.text = "[B] Semi Auto";
-
-        if (currentMag == 0 && Input.GetButtonDown("Fire1")) emptyMag.Play();
-
-        if (currentMag <= 5) currentAmmoUI.color = Color.red;
-        else currentAmmoUI.color = Color.white;
-
         if (fireMode)
         {
             if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
             {
-                nextTimeToFire = Time.time + 1f / fireRate;
+                nextTimeToFire = Time.time + 1f / fireSpeed;
                 Shoot();
                 oneShot.Play();
             }
@@ -85,17 +74,25 @@ public class PlayerShoot : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
             {
-                nextTimeToFire = Time.time + 1f / fireRate;
+                nextTimeToFire = Time.time + 1f / fireSpeed;
                 Shoot();
                 oneShot.Play();
             }
         }
 
+        if (fireMode) fireModeText.text = "[B] Full Auto";
+        else fireModeText.text = "[B] Semi Auto";
+
+        if (currentMag == 0 && Input.GetButtonDown("Fire1")) emptyMag.Play();
+
+        if (currentMag <= 5) currentAmmoUI.color = Color.red;
+        else currentAmmoUI.color = Color.white;
+
         if (Input.GetMouseButton(1))
         {
             animator.SetBool("IsScopeing", true);
             crosshair.SetActive(false);
-            Weapon = scopeSight;
+            WeaponPOV = scopeSight;
             scopeSight.SetActive(true);
         }
 
@@ -104,12 +101,12 @@ public class PlayerShoot : MonoBehaviour
             animator.SetBool("IsScopeing", false);
             waiting = true;
             crosshair.SetActive(true);
-            Weapon = mainCamera;
+            WeaponPOV = mainCamera;
             scopeSight.SetActive(false);
         }
 
         if (Input.GetKeyDown("b"))
-        { 
+        {
             fireMode = !fireMode;
         }
 
@@ -118,17 +115,17 @@ public class PlayerShoot : MonoBehaviour
             if (animator.GetBool("IsScopeing")) Debug.Log("Scopeolás közbeni reload probalkozas");
             else StartCoroutine(Reload());
         }
+
+        UpdateUI();
     }
 
-    void Shoot()
+    public override void Shoot()
     {
         currentMag--;
-        refreshUI();
-
-        RaycastHit hit;
         muzzleFlash.Play();
 
-        if (Physics.Raycast(Weapon.transform.position, Weapon.transform.forward, out hit, range))
+        RaycastHit hit;
+        if (Physics.Raycast(WeaponPOV.transform.position, WeaponPOV.transform.forward, out hit, range))
         {
             MaterialType materialType = hit.transform.GetComponent<MaterialType>();
 
@@ -140,32 +137,21 @@ public class PlayerShoot : MonoBehaviour
                 {
                     case MaterialType.Material.Wood:
                         impactEffect = Instantiate(woodImpact, hit.point, Quaternion.LookRotation(hit.normal));
-                        //hit.transform.GetComponent<AudioSource>().Play();
                         break;
-
                     case MaterialType.Material.Concrete:
-                        impactEffect = Instantiate(concreteImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                        //hit.transform.GetComponent<AudioSource>().Play();
+                        impactEffect = Instantiate(concreteImpact, hit.point, Quaternion.LookRotation(hit.normal));
                         break;
-
                     case MaterialType.Material.Metal:
-                        impactEffect = Instantiate(metalImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                        //hit.transform.GetComponent<AudioSource>().Play();
+                        impactEffect = Instantiate(metalImpact, hit.point, Quaternion.LookRotation(hit.normal));
                         break;
-
                     case MaterialType.Material.Dirt:
-                        impactEffect = Instantiate(dirtImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                        //hit.transform.GetComponent<AudioSource>().Play();
+                        impactEffect = Instantiate(dirtImpact, hit.point, Quaternion.LookRotation(hit.normal));
                         break;
-
                     case MaterialType.Material.Sand:
-                        impactEffect = Instantiate(sandImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                        //hit.transform.GetComponent<AudioSource>().Play();
+                        impactEffect = Instantiate(sandImpact, hit.point, Quaternion.LookRotation(hit.normal));
                         break;
-
                     case MaterialType.Material.Blood:
-                        impactEffect = Instantiate(bloodImpact.gameObject, hit.point, Quaternion.LookRotation(hit.normal));
-                        //hit.transform.GetComponent<AudioSource>().Play();
+                        impactEffect = Instantiate(bloodImpact, hit.point, Quaternion.LookRotation(hit.normal));
                         break;
                 }
 
@@ -183,7 +169,7 @@ public class PlayerShoot : MonoBehaviour
         }
     }
 
-    IEnumerator Reload()
+    public override IEnumerator Reload()
     {
         if (currentMag == maxMag || allAmmo <= 0)
             yield break;
@@ -192,8 +178,6 @@ public class PlayerShoot : MonoBehaviour
         animator.SetTrigger("Reload");
         reloadAudio.Play();
 
-
-        // Várakozási idõ a reload animációhoz (pl. 2 másodperc)
         yield return new WaitForSeconds(2f);
 
         int ammoNeeded = maxMag - currentMag;
@@ -202,12 +186,12 @@ public class PlayerShoot : MonoBehaviour
         currentMag += ammoToReload;
         allAmmo -= ammoToReload;
 
-        refreshUI();
-
         isReloading = false;
+
+        UpdateUI();
     }
 
-    public void refreshUI() 
+    private void UpdateUI()
     {
         allAmmoUI.text = $"{allAmmo}";
         currentAmmoUI.text = $"{currentMag}";
