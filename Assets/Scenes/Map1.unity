@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.42719638, g: 0.46034032, b: 0.488061, a: 1}
+  m_IndirectSpecularColor: {r: 0.4271962, g: 0.46034008, b: 0.48806083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -982,7 +982,7 @@ MonoBehaviour:
   fireRate: 1
   bulletSpeed: 50
   viewDistance: 25
-  viewAngle: 110
+  viewAngle: 160
 --- !u!195 &65937790
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -9762,7 +9762,7 @@ MonoBehaviour:
   fireRate: 1
   bulletSpeed: 50
   viewDistance: 25
-  viewAngle: 110
+  viewAngle: 160
 --- !u!195 &911971990
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10799,7 +10799,7 @@ MonoBehaviour:
   fireRate: 1
   bulletSpeed: 50
   viewDistance: 25
-  viewAngle: 110
+  viewAngle: 160
 --- !u!195 &986609994
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -18715,7 +18715,7 @@ MonoBehaviour:
   fireRate: 1
   bulletSpeed: 50
   viewDistance: 25
-  viewAngle: 110
+  viewAngle: 160
 --- !u!195 &1809787932
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -24613,7 +24613,7 @@ MonoBehaviour:
   fireRate: 1
   bulletSpeed: 50
   viewDistance: 25
-  viewAngle: 110
+  viewAngle: 160
 --- !u!4 &1364255463956268279
 Transform:
   m_ObjectHideFlags: 0
