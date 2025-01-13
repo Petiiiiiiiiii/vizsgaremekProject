@@ -20,6 +20,7 @@ public class SMG : Weapon
     [SerializeField] AudioSource oneShot;
     [SerializeField] AudioSource emptyMag;
     [SerializeField] AudioSource reloadAudio;
+    [SerializeField] GameObject hitMarker;
 
     public GameObject WeaponPOV;
     public GameObject scopeSight;
@@ -48,6 +49,12 @@ public class SMG : Weapon
 
     private void Update()
     {
+
+        if (hitMarker.active)
+        {
+            hitMarker.SetActive(false);
+        }
+        
         if (isReloading)
             return;
 
@@ -165,6 +172,7 @@ public class SMG : Weapon
             if (target != null)
             {
                 target.TakeDamage(damage);
+                hitMarker.SetActive(true);
             }
         }
     }
