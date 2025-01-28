@@ -49,11 +49,6 @@ public class SMG : Weapon
 
     private void Update()
     {
-
-        if (hitMarker.active)
-        {
-            hitMarker.SetActive(false);
-        }
         
         if (isReloading)
             return;
@@ -172,7 +167,8 @@ public class SMG : Weapon
             if (target != null)
             {
                 target.TakeDamage(damage);
-                hitMarker.SetActive(true);
+                StartCoroutine(HitmarkerController());
+
             }
         }
     }
@@ -203,5 +199,12 @@ public class SMG : Weapon
     {
         allAmmoUI.text = $"{allAmmo}";
         currentAmmoUI.text = $"{currentMag}";
+    }
+
+    IEnumerator HitmarkerController()
+    {
+        hitMarker.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        hitMarker.SetActive(false);
     }
 }
