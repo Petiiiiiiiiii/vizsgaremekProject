@@ -14,7 +14,7 @@ public class AiPlayerFollow : MonoBehaviour
     public float fireRate = 3f; // Lövési sebesség (lövések/másodperc)
     public float bulletSpeed = 50f; // A lövedék sebessége
     public float viewDistance = 20f; // Az AI látótávolsága
-    public float viewAngle = 160f; // Az AI látószöge fokban
+    public float viewAngle = 90f; // Az AI látószöge fokban
 
     private NavMeshAgent ai;
     private bool isShooting = false;
@@ -42,9 +42,9 @@ public class AiPlayerFollow : MonoBehaviour
             return; // Nem található játékos, így az AI nem tud semmit tenni
         }
 
-            CheckPlayerVisibility();
+        CheckPlayerVisibility();
 
-        Debug.Log("Can AI see player? " + canSeePlayer);
+        //Debug.Log("Can AI see player? " + canSeePlayer);
 
         if (canSeePlayer)
         {
@@ -96,7 +96,7 @@ public class AiPlayerFollow : MonoBehaviour
     {
         Vector3 direction = (player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 10f); // Forgás sebessége
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f); // Forgás sebessége
     }
 
     void HandleShooting()
@@ -140,12 +140,10 @@ public class AiPlayerFollow : MonoBehaviour
             float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
             if (angleToPlayer <= viewAngle / 2)
             {
-                if (Physics.Linecast(transform.position, player.position, out RaycastHit hit))
+                if (!Physics.Linecast(transform.position + Vector3.up, player.position + Vector3.up, out RaycastHit hit))
                 {
-
-                        canSeePlayer = true;
-                        return;
-
+                    canSeePlayer = true;
+                    return;
                 }
                 else
                 {
@@ -153,7 +151,7 @@ public class AiPlayerFollow : MonoBehaviour
                 }
             }
         }
-        canSeePlayer = false;
 
+        canSeePlayer = false;
     }
 }

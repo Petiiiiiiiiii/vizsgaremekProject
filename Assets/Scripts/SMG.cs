@@ -20,7 +20,6 @@ public class SMG : Weapon
     [SerializeField] AudioSource oneShot;
     [SerializeField] AudioSource emptyMag;
     [SerializeField] AudioSource reloadAudio;
-    [SerializeField] GameObject hitMarker;
 
     public GameObject WeaponPOV;
     public GameObject scopeSight;
@@ -49,7 +48,6 @@ public class SMG : Weapon
 
     private void Update()
     {
-        
         if (isReloading)
             return;
 
@@ -167,8 +165,6 @@ public class SMG : Weapon
             if (target != null)
             {
                 target.TakeDamage(damage);
-                StartCoroutine(HitmarkerController());
-
             }
         }
     }
@@ -199,12 +195,5 @@ public class SMG : Weapon
     {
         allAmmoUI.text = $"{allAmmo}";
         currentAmmoUI.text = $"{currentMag}";
-    }
-
-    IEnumerator HitmarkerController()
-    {
-        hitMarker.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        hitMarker.SetActive(false);
     }
 }
