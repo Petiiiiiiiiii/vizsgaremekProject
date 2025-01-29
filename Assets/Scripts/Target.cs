@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
-    public float health = 50f;
+    public float maxHealth = 50;
+    public float currentHealth = 50f;
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
-        if (health <= 0f)
+        currentHealth -= amount;
+        if (currentHealth <= 0f)
         {
             Die();
         }
+
+        GetComponent<AiPlayerFollow>().RotateTowardsPlayer();
     }
 
     void Die()

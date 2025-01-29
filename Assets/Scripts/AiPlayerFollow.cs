@@ -6,7 +6,6 @@ using UnityEngine.AI;
 
 public class AiPlayerFollow : MonoBehaviour
 {
-    public Animator aiAnimator;
     private Transform player;
     public float shootingDistance = 10f; // Mekkora távolságnál lõ az AI
     public GameObject bulletPrefab; // A lövedék prefabja
@@ -54,7 +53,6 @@ public class AiPlayerFollow : MonoBehaviour
             {
                 if (!isShooting)
                 {
-                    aiAnimator.SetBool("isShooting", true);
                     StartShooting();
                 }
                 RotateTowardsPlayer();
@@ -62,7 +60,6 @@ public class AiPlayerFollow : MonoBehaviour
             }
             else
             {
-                aiAnimator.SetBool("isShooting", false);
                 StopShooting();
                 ai.isStopped = false;
                 ai.destination = player.position;
@@ -71,7 +68,6 @@ public class AiPlayerFollow : MonoBehaviour
         }
         else
         {
-            aiAnimator.SetBool("isShooting", false);
             StopShooting();
         }
     }
@@ -92,11 +88,11 @@ public class AiPlayerFollow : MonoBehaviour
         }
     }
 
-    void RotateTowardsPlayer()
+    public void RotateTowardsPlayer()
     {
         Vector3 direction = (player.position - transform.position).normalized;
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f); // Forgás sebessége
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 500f); // Forgás sebessége
     }
 
     void HandleShooting()

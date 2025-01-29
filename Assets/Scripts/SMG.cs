@@ -161,10 +161,21 @@ public class SMG : Weapon
                 }
             }
 
-            Target target = hit.transform.GetComponent<Target>();
+            Target target = hit.transform.GetComponentInParent<Target>();
             if (target != null)
             {
-                target.TakeDamage(damage);
+                if (hit.transform.tag == "enemyHead")
+                {
+                    target.TakeDamage(damage * 2);
+                    Debug.Log($"fejloves | {target.currentHealth}hp maradt, damage {damage*2}");
+                    
+                }
+                else 
+                {
+                    target.TakeDamage(damage);
+                    Debug.Log($"testloves | {target.currentHealth}hp maradt , damage {damage}");
+                }
+                
             }
         }
     }
