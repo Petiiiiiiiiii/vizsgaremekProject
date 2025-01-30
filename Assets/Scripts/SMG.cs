@@ -94,7 +94,7 @@ public class SMG : Weapon
         {
             animator.SetBool("IsScopeing", true);
             crosshair.SetActive(false);
-            WeaponPOV = scopeSight;
+            WeaponPOV = mainCamera;
             scopeSight.SetActive(true);
         }
 
