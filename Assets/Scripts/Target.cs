@@ -14,8 +14,6 @@ public class Target : MonoBehaviour
         {
             Die();
         }
-
-        GetComponent<AiPlayerFollow>().RotateTowardsPlayer();
     }
 
     void Die()
