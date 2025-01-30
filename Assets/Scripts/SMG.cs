@@ -21,6 +21,7 @@ public class SMG : Weapon
     [SerializeField] AudioSource emptyMag;
     [SerializeField] AudioSource reloadAudio;
     [SerializeField] GameObject hitMarker;
+    [SerializeField] GameObject hitMarkerHead;
 
     public GameObject WeaponPOV;
     public GameObject scopeSight;
@@ -167,16 +168,17 @@ public class SMG : Weapon
             {
                 if (hit.transform.tag == "enemyHead")
                 {
+                    StartCoroutine(hitmarkerController(true));
                     target.TakeDamage(damage * 2);
                     Debug.Log($"fejloves | {target.currentHealth}hp maradt, damage {damage*2}");
-                    
                 }
                 else 
                 {
+                    StartCoroutine(hitmarkerController(false));
                     target.TakeDamage(damage);
                     Debug.Log($"testloves | {target.currentHealth}hp maradt , damage {damage}");
                 }
-                StartCoroutine(hitmarkerController());
+                
             }
         }
     }
@@ -209,10 +211,20 @@ public class SMG : Weapon
         currentAmmoUI.text = $"{currentMag}";
     }
 
-    IEnumerator hitmarkerController() 
+    IEnumerator hitmarkerController(bool hitPoint) 
     {
-        hitMarker.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        hitMarker.SetActive(false);
+        if (!hitPoint)
+        {
+            hitMarker.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            hitMarker.SetActive(false);
+        }
+        else 
+        {
+            hitMarkerHead.SetActive(true);
+            yield return new WaitForSeconds(0.1f);
+            hitMarkerHead.SetActive(false);
+        }
+
     }
 }
