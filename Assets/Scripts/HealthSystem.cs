@@ -30,13 +30,9 @@ public class HealthSystem : MonoBehaviour
         {
             Debug.Log("meghaltál");
         }
-
-        if (Input.GetKeyDown(KeyCode.J)) TakeDmg(15);
-
-        if (Input.GetKeyDown(KeyCode.K)) Heal(20);
     }
 
-    public void TakeDmg(int dmg) 
+    public void TakeDmg(float dmg) 
     {
         if (currentHealth <= 0)
         {
