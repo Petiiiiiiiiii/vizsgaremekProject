@@ -162,6 +162,7 @@ public class SMG : Weapon
                     Destroy(impactEffect, 1f);
                 }
             }
+            else Debug.Log("valami nemjo");
 
             Target target = hit.transform.GetComponentInParent<Target>();
             if (target != null)
