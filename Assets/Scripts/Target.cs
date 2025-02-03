@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class Target : MonoBehaviour
 {
+    private Transform player;
+
     public float maxHealth = 50;
     public float currentHealth = 50f;
     public Animator animator;
@@ -15,6 +18,7 @@ public class Target : MonoBehaviour
     private void Start()
     {
         colliders = GetComponentsInChildren<CapsuleCollider>();
+        player = GameObject.Find("player").transform;
     }
 
     public void TakeDamage(float amount)
@@ -28,6 +32,16 @@ public class Target : MonoBehaviour
 
     void Die()
     {
+        if (transform.tag == "enemyBOSS")
+        {
+            player.GetComponent<ExperienceSys>().bossKill();
+        }
+        else if (transform.tag == "enemyNormal")
+        {
+            player.GetComponent<ExperienceSys>().enemyKill();
+        }
+
+        Debug.Log("xp: " + PlayerPrefs.GetInt("playerXP") + " xp");
         Destroy(gameObject);
     }
 

@@ -7,6 +7,8 @@ TagManager:
   - FxTemporaire
   - enemyHead
   - enemyBody
+  - enemyBOSS
+  - enemyNormal
   layers:
   - Default
   - TransparentFX
