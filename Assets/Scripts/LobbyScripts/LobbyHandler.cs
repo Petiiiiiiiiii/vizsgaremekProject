@@ -11,66 +11,64 @@ public class LobbyHandler : MonoBehaviour
     [SerializeField] Canvas SkillsUI;
     [SerializeField] Canvas PlayUI;
 
-    private float timer = 0f;
-    private float timer2 = 0f;
-    private bool waiting = false;
-    private bool waiting2 = false;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        if (waiting)
-        {
-            timer += Time.deltaTime;
-            if (timer >= 2.55f)
-            {
-                waiting = false;
-                SkillsUI.gameObject.SetActive(true);
-                timer = 0f;
-            }
-        }
-
-        if (waiting2)
-        {
-            timer2 += Time.deltaTime;
-            if (timer2 >= 2.55f)
-            {
-                waiting2 = false;
-                LobbyUI.gameObject.SetActive(true);
-                timer2 = 0f;
-            }
-        }
-    }
+    public Animation playAnim;
+    public Animation playReverseAnim;
+    public AnimationClip skillsAnim;
+    public Animation skillsReverseAnim;
 
     public void PlayButton() 
     {
-        animator.SetBool("Play",true);
-        PlayUI.gameObject.SetActive(true);
-        LobbyUI.gameObject.SetActive(false);
+        StartCoroutine(WaitForAnimPlay(true));  
     }
 
     public void PlayBackButton() 
     {
-        animator.SetBool("Play", false);
-        PlayUI.gameObject.SetActive(false);
-        LobbyUI.gameObject.SetActive(true);
+        StartCoroutine(WaitForAnimPlay(false));
     }
 
     public void SkillsButton() 
     {
-        animator.SetBool("Skills", true);
-        waiting = true;
-        LobbyUI.gameObject.SetActive(false);
+        StartCoroutine(WaitForAnimSkills(true));
     }
 
     public void SkillsBackButton() 
     {
-        animator.SetBool("Skills",false);
-        waiting2 = true;
-        SkillsUI.gameObject.SetActive(false);
+        StartCoroutine(WaitForAnimSkills(false));
+    }
+
+    IEnumerator WaitForAnimSkills(bool value) 
+    {
+        if (value)
+        {
+            animator.SetBool("Skills",value);
+            LobbyUI.gameObject.SetActive(!value);
+            yield return new WaitForSeconds(2.6f);
+            SkillsUI.gameObject.SetActive(value);
+        }
+        else 
+        {
+            animator.SetBool("Skills", value);
+            SkillsUI.gameObject.SetActive(value);
+            yield return new WaitForSeconds(2.6f);
+            LobbyUI.gameObject.SetActive(!value);
+        }
+    }
+    IEnumerator WaitForAnimPlay(bool value)
+    {
+        if (value)
+        {
+            animator.SetBool("Play", value);
+            LobbyUI.gameObject.SetActive(!value);
+            yield return new WaitForSeconds(1f);
+            PlayUI.gameObject.SetActive(value);
+        }
+        else 
+        {
+            animator.SetBool("Play", value);
+            PlayUI.gameObject.SetActive(value);
+            yield return new WaitForSeconds(1f);
+            LobbyUI.gameObject.SetActive(!value);
+        }
+
     }
 }
