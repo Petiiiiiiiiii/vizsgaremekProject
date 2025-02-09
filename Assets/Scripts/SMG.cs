@@ -44,8 +44,6 @@ public class SMG : Weapon
         maxMag = 30;
         currentMag = 30;
         allAmmo = 210;
-
-        WeaponPOV = mainCamera;
     }
 
     private void Update()
@@ -94,7 +92,6 @@ public class SMG : Weapon
         {
             animator.SetBool("IsScopeing", true);
             crosshair.SetActive(false);
-            WeaponPOV = mainCamera;
             scopeSight.SetActive(true);
         }
 
@@ -103,7 +100,6 @@ public class SMG : Weapon
             animator.SetBool("IsScopeing", false);
             waiting = true;
             crosshair.SetActive(true);
-            WeaponPOV = mainCamera;
             scopeSight.SetActive(false);
         }
 

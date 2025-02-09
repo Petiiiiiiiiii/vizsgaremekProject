@@ -68,10 +68,29 @@ public class PlayerController : MonoBehaviour
         // Player and Camera rotation
         if (canMove)
         {
+            //rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
+            //rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+            //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            //transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+
             rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+
+            // Kamera elõre mozgatása, ha eléri a 20°-os dõlésszöget
+            if (rotationX >= 0)
+            {
+                float t = Mathf.InverseLerp(0, 90, rotationX); // Interpolációs érték 0 és 1 között
+                float newZ = Mathf.Lerp(0, 0.54f, t);
+
+                playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, 1.8f, newZ);
+            }
+            else
+            {
+                playerCamera.transform.localPosition = new Vector3(playerCamera.transform.localPosition.x, playerCamera.transform.localPosition.y, 1.544953e-06f);
+            }
         }
     }
 }
