@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
 public class LobbyHandler : MonoBehaviour
@@ -11,11 +14,20 @@ public class LobbyHandler : MonoBehaviour
     [SerializeField] Canvas SkillsUI;
     [SerializeField] Canvas PlayUI;
 
-    public Animation playAnim;
-    public Animation playReverseAnim;
-    public AnimationClip skillsAnim;
-    public Animation skillsReverseAnim;
+    private string username;
+    public TextMeshProUGUI levelAndName;
+    public TextMeshProUGUI sp;
+    public TextMeshProUGUI playmenuLevel;
+    public TextMeshProUGUI playmenuName;
+    public TextMeshProUGUI skillsmenuName;
+    public TextMeshProUGUI skillsmenuLevel;
 
+
+    private void Start()
+    {
+        username = PlayerPrefs.GetString("Username");
+        StartCoroutine(Upload());
+    }
     public void PlayButton() 
     {
         StartCoroutine(WaitForAnimPlay(true));  
@@ -70,5 +82,29 @@ public class LobbyHandler : MonoBehaviour
             LobbyUI.gameObject.SetActive(!value);
         }
 
+    }
+
+    IEnumerator Upload()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("username", username);
+
+        using UnityWebRequest www = UnityWebRequest.Post("http://localhost/dungeonmaster/lobby_start_query.php", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("Hálózati hiba: " + www.error);
+        }
+        else
+        {
+            string response = www.downloadHandler.text;
+            levelAndName.text = $"Level {response} - {username}";
+            sp.text = $"{PlayerPrefs.GetInt("SP")} SP";
+            playmenuLevel.text = response;
+            playmenuName.text = username;
+            skillsmenuLevel.text = response;
+            skillsmenuName.text = username;
+        }
     }
 }
