@@ -9,17 +9,23 @@ public class SMG : Weapon
     [SerializeField] Animator animator;
     [SerializeField] GameObject crosshair;
     [SerializeField] ParticleSystem muzzleFlash;
+
     [SerializeField] GameObject concreteImpact;
     [SerializeField] GameObject woodImpact;
     [SerializeField] GameObject sandImpact;
     [SerializeField] GameObject metalImpact;
     [SerializeField] GameObject bloodImpact;
     [SerializeField] GameObject dirtImpact;
+
     [SerializeField] TextMeshProUGUI allAmmoUI;
     [SerializeField] TextMeshProUGUI currentAmmoUI;
+
     [SerializeField] AudioSource oneShot;
     [SerializeField] AudioSource emptyMag;
     [SerializeField] AudioSource reloadAudio;
+    [SerializeField] AudioSource firemodeSwitch;
+
+
     [SerializeField] GameObject hitMarker;
     [SerializeField] GameObject hitMarkerHead;
 
@@ -106,6 +112,7 @@ public class SMG : Weapon
         if (Input.GetKeyDown("b"))
         {
             fireMode = !fireMode;
+            firemodeSwitch.Play();
         }
 
         if (Input.GetKeyDown(KeyCode.R) && !waiting)
