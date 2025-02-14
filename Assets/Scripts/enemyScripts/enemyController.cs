@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class enemyController : MonoBehaviour
 {
     private Transform player;
+    string playerGameobj;
     public float attackRange = 2f;
     public float attackCooldown = 1f;
     public float detectionRange = 13f;
@@ -16,7 +17,8 @@ public class enemyController : MonoBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        player = GameObject.Find("player").transform;
+        playerGameobj = GameObject.Find("GameManager").GetComponent<GameManager>().player;
+        player = GameObject.Find(playerGameobj).transform;
     }
 
     void Update()

@@ -7,6 +7,7 @@ using UnityEngine.AI;
 public class Target : MonoBehaviour
 {
     private Transform player;
+    string playerGameobj;
 
     public float maxHealth = 50;
     public float currentHealth = 50f;
@@ -18,7 +19,8 @@ public class Target : MonoBehaviour
     private void Start()
     {
         colliders = GetComponentsInChildren<CapsuleCollider>();
-        player = GameObject.Find("player").transform;
+        playerGameobj = GameObject.Find("GameManager").GetComponent<GameManager>().player;
+        player = GameObject.Find(playerGameobj).transform;
     }
 
     public void TakeDamage(float amount)
