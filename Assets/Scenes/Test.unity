@@ -5341,7 +5341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50cfe07dd2c410441a94552be134abdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: 
+  player: player - G36C
 --- !u!4 &1029718786
 Transform:
   m_ObjectHideFlags: 0
@@ -20640,6 +20640,7 @@ GameObject:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1029718786}
   - {fileID: 4810238600754763808}
   - {fileID: 4358643602053088509}
   - {fileID: 508747093}
@@ -20652,5 +20653,4 @@ SceneRoots:
   - {fileID: 1689223028}
   - {fileID: 1949517363}
   - {fileID: 1079651797}
-  - {fileID: 1029718786}
   - {fileID: 7505786076820484010}
