@@ -122,11 +122,11 @@ function sortTable(columnIndex) {
                     }
                     $query = "SELECT players.Username, playerstats.Kills, playerstats.Deaths, playerstats.Level, playerstats.RegDate, playerstats.Playtime FROM players INNER JOIN playerstats ON players.PlayerID = playerstats.PlayerID LIMIT 100";
                     $result = mysqli_query($connection, $query);
-                    $id = 1;
+                    $orderID = 1;
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             echo "<tr>
-                                    <td class='id-column'>{$id}</td>
+                                    <td class='id-column'>{$orderID}</td>
                                     <td>{$row['Username']}</td>
                                     <td>{$row['Kills']}</td>
                                     <td>{$row['Deaths']}</td>
@@ -134,7 +134,7 @@ function sortTable(columnIndex) {
                                     <td>{$row['Playtime']}</td>
                                     <td>{$row['RegDate']}</td>
                                   </tr>";
-                            $id++;
+                            $orderID++;
                         }
                     } else {
                         echo "<tr><td colspan='7'>Nincsenek statisztikák.</td></tr>";
