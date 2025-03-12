@@ -2,7 +2,7 @@
 require '../db.php'; // Adatbázis kapcsolat betöltése
 
 // Játékosok lekérése az adatbázisból
-$sql = "SELECT * FROM players";
+$sql = "SELECT PlayerID, Username, Email, Level, RegDate FROM players";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -23,8 +23,7 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
             font-weight: normal;
             font-style: normal;
         }
-        *
-        {
+        * {
             font-family: 'DungeonFont', sans-serif;
             color: white;
         }
@@ -34,41 +33,32 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
             position: fixed;
             width: 250px;
         }
-        .card-header{background-color: #111;}
-        .card-body{background-color: #222;}
-        table {background-color: #222;}
-        th, td
-        {
+        .card-header { background-color: #111; }
+        .card-body { background-color: #222; }
+        table { background-color: #222; }
+        th, td {
             color: white !important;
             background-color: #222 !important;
         }
-        tr {text-align: center;}
-        .main-content, .navbar
-        {
-            background-color: #333;
-        }
-        body {background-color: #333;}
-        h4
-        {
+        tr { text-align: center; }
+        .main-content, .navbar { background-color: #333; }
+        body { background-color: #333; }
+        h4 {
             color: #FFD700;
             font-size: 22px;
         }
-        h5{color: white;}
-        .btn{color: white;}
-        .modal-content{background-color: #222;}
-
-
+        h5 { color: white; }
+        .btn { color: white; }
+        .modal-content { background-color: #222; }
         .sidebar-header {
             padding: 20px;
             color: #ecf0f1;
             border-bottom: 1px solid #34495e;
         }
-        
         .sidebar-menu {
             list-style: none;
             padding: 0;
         }
-        
         .sidebar-menu li a {
             color: #bdc3c7;
             padding: 15px 20px;
@@ -76,32 +66,13 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
             text-decoration: none;
             transition: 0.3s;
         }
-        
         .sidebar-menu li a:hover {
             background: #34495e;
             color: #ecf0f1;
         }
-        
         .main-content {
             margin-left: 250px;
             padding: 20px;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        
-        .stat-icon {
-            font-size: 2.5rem;
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            opacity: 0.7;
         }
     </style>
 </head>
@@ -113,7 +84,7 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <h4>Dungeon Master</h4>
     </div>
     <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home me-2"></i>Dashboard</a></li>
+        <li><a href="mainPanel.php"><i class="fas fa-home me-2"></i>Dashboard</a></li>
         <li><a href="users.php"><i class="fas fa-users me-2"></i>Players</a></li>
     </ul>
 </div>
@@ -163,7 +134,7 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?= $player['RegDate'] ?></td>
                         <td>
                             <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editModal" 
-                                    onclick="loadEditForm(<?= $player['PlayerID'] ?>, '<?= htmlspecialchars($player['Username']) ?>', '<?= htmlspecialchars($player['Email']) ?>')">
+                                    onclick="loadEditForm(<?= $player['PlayerID'] ?>, '<?= htmlspecialchars($player['Username']) ?>', '<?= htmlspecialchars($player['Email']) ?>', <?= $player['Level'] ?>, '<?= $player['RegDate'] ?>')">
                                 <i class="fas fa-edit"></i> Edit
                             </button>
                             <button class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $player['PlayerID'] ?>)">
@@ -183,7 +154,7 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Editing (username)</h5>
+                <h5 class="modal-title" id="editModalLabel">Editing <span id="editUsernameLabel"></span></h5>
                 <button type="button" class="btn-close" style="background-color: white;" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -198,8 +169,12 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <input type="email" class="form-control" id="editEmail" name="email">
                     </div>
                     <div class="mb-3">
+                        <label for="level" class="form-label">Level</label>
+                        <input type="number" class="form-control" id="editLevel" name="level">
+                    </div>
+                    <div class="mb-3">
                         <label for="registrationDate" class="form-label">Registration Date</label>
-                        <input type="date" class="form-control" id="editRegDate" name="regDate">
+                        <input type="text" class="form-control" id="editRegDate" name="regDate" readonly>
                     </div>
                 </form>
             </div>
@@ -219,10 +194,13 @@ $players = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
     }
 
-    function loadEditForm(playerID, username, email) {
+    function loadEditForm(playerID, username, email, level, regDate) {
         document.getElementById('editPlayerID').value = playerID;
         document.getElementById('editUsername').value = username;
         document.getElementById('editEmail').value = email;
+        document.getElementById('editLevel').value = level;
+        document.getElementById('editRegDate').value = regDate;
+        document.getElementById('editUsernameLabel').innerText = username;
     }
 </script>
 </body>

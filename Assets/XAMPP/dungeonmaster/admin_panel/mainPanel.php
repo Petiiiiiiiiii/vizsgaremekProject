@@ -1,3 +1,42 @@
+<?php
+// Adatbázis kapcsolat
+$servername = "localhost";
+$username = "root"; // Csere a valós adatokra
+$password = "";
+$dbname = "dungeonmaster";
+
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Játékosok száma
+    $stmt = $conn->query("SELECT COUNT(*) FROM players");
+    $playerCount = $stmt->fetchColumn();
+
+    // Mai regisztrációk
+    $stmt = $conn->query("SELECT COUNT(*) FROM players WHERE DATE(RegDate) = CURDATE()");
+    $newRegs = $stmt->fetchColumn();
+
+    // Lejátszott meccsek
+    $stmt = $conn->query("SELECT COUNT(*) FROM matchlogs");
+    $matchesPlayed = $stmt->fetchColumn();
+
+    // Recent match-logs lekérése
+    $stmt = $conn->query("
+        SELECT m.PlayerID, p.Username, m.Kills, m.MatchDuration, m.Win 
+        FROM matchlogs m
+        JOIN players p ON m.PlayerID = p.PlayerID
+        ORDER BY m.MatchID DESC
+        LIMIT 10
+    ");
+    $matchLogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+} catch(PDOException $e) {
+    echo "Hiba: " . $e->getMessage();
+}
+$conn = null;
+?>
+
 <!DOCTYPE html>
 <html lang="hu">
 <head>
@@ -99,7 +138,7 @@
         <h4>Dungeon Master</h4>
     </div>
     <ul class="sidebar-menu">
-        <li><a href="index.html"><i class="fas fa-home me-2"></i>Dashboard</a></li>
+        <li><a href="mainPanel.php"><i class="fas fa-home me-2"></i>Dashboard</a></li>
         <li><a href="users.php"><i class="fas fa-users me-2"></i>Players</a></li>
     </ul>
 </div>
@@ -128,22 +167,22 @@
     <div class="row">
         <div class="col-md-4">
             <div class="stat-card bg-primary text-white">
-                <h5>Players count</h5>
-                <h2>1,234</h2>
+                <h5>Player count</h5>
+                <h2><?= htmlspecialchars($playerCount) ?></h2>
                 <i class="fas fa-users stat-icon"></i>
             </div>
         </div>
         <div class="col-md-4">
             <div class="stat-card bg-success text-white">
                 <h5>Matches played</h5>
-                <h2>567</h2>
+                <h2><?= htmlspecialchars($matchesPlayed) ?></h2>
                 <i class="fas fa-gamepad stat-icon"></i>
             </div>
         </div>
         <div class="col-md-4">
             <div class="stat-card bg-info text-white">
                 <h5>New regs</h5>
-                <h2>25</h2>
+                <h2><?= htmlspecialchars($newRegs) ?></h2>
                 <i class="fas fa-chart-line stat-icon"></i>
             </div>
         </div>
@@ -166,34 +205,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Admin</td>
-                        <td>154</td>
-                        <td>35 min</td>
-                        <td>true</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Sango</td>
-                        <td>87</td>
-                        <td>22 min</td>
-                        <td>false</td>
-                    </tr>
-                    <tr>
-                        <td>15</td>
-                        <td>Kamy</td>
-                        <td>33</td>
-                        <td>7 min</td>
-                        <td>true</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Xeron</td>
-                        <td>99</td>
-                        <td>27 min</td>
-                        <td>false</td>
-                    </tr>
+                    <?php foreach ($matchLogs as $log): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($log['PlayerID']) ?></td>
+                            <td><?= htmlspecialchars($log['Username']) ?></td>
+                            <td><?= htmlspecialchars($log['Kills']) ?></td>
+                            <td><?= htmlspecialchars($log['MatchDuration']) ?> min</td>
+                            <td><?= $log['Win'] ? 'true' : 'false' ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>

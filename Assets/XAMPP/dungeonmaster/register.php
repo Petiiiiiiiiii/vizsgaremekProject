@@ -33,7 +33,7 @@ if (mysqli_stmt_num_rows($stmt) > 0) {
 }
 mysqli_stmt_close($stmt);
 
-$insertUserQuery = "INSERT INTO players (Username, PasswordHash, Email) VALUES (?, ?, ?)";
+$insertUserQuery = "INSERT INTO players (Username, PasswordHash, Email, Level, RegDate) VALUES (?, ?, ?, 0, current_timestamp())";
 $stmt = mysqli_prepare($connection, $insertUserQuery);
 mysqli_stmt_bind_param($stmt, "sss", $username, $hash, $email);
 
@@ -42,15 +42,6 @@ if (!mysqli_stmt_execute($stmt)) {
 }
 
 $playerID = mysqli_insert_id($connection);
-mysqli_stmt_close($stmt);
-
-$insertStatsQuery = "INSERT INTO playerstats (PlayerID, Kills, Deaths, Level, Playtime, RegDate) VALUES (?, 0, 0, 1, 0, current_timestamp())";
-$stmt = mysqli_prepare($connection, $insertStatsQuery);
-mysqli_stmt_bind_param($stmt, "i", $playerID);
-
-if (!mysqli_stmt_execute($stmt)) {
-    exit("8: Insert playerstats query failed");
-}
 mysqli_stmt_close($stmt);
 
 echo "0";

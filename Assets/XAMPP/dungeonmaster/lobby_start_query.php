@@ -7,7 +7,7 @@
 
     $username = $_POST["username"];
 
-    $sql = "SELECT * FROM playerstats WHERE PlayerID = (SELECT PlayerID FROM players WHERE Username = ?);";
+    $sql = "SELECT * FROM players WHERE PlayerID = (SELECT PlayerID FROM players WHERE Username = ?);";
     $stmt = mysqli_prepare($connection, $sql);
     mysqli_stmt_bind_param($stmt, "s", $username);
     mysqli_stmt_execute($stmt);
