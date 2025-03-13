@@ -9,6 +9,7 @@ TagManager:
   - enemyBody
   - enemyBOSS
   - enemyNormal
+  - Enemy
   layers:
   - Default
   - TransparentFX
