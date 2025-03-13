@@ -170,19 +170,26 @@ public class SMG : Weapon
             Target target = hit.transform.GetComponentInParent<Target>();
             if (target != null)
             {
-                if (hit.transform.tag == "enemyHead")
+                float appliedDamage = (hit.transform.CompareTag("enemyHead")) ? damage * 2 : damage;
+
+                if (hit.transform.CompareTag("enemyHead"))
                 {
                     StartCoroutine(hitmarkerController(true));
-                    target.TakeDamage(damage * 2);
-                    Debug.Log($"fejloves | {target.currentHealth}hp maradt, damage {damage*2}");
+                    Debug.Log($"Fejlövés | {target.currentHealth} HP maradt, damage: {appliedDamage}");
                 }
-                else 
+                else
                 {
                     StartCoroutine(hitmarkerController(false));
-                    target.TakeDamage(damage);
-                    Debug.Log($"testloves | {target.currentHealth}hp maradt , damage {damage}");
+                    Debug.Log($"Testlövés | {target.currentHealth} HP maradt, damage: {appliedDamage}");
                 }
-                
+
+                target.TakeDamage(appliedDamage);
+                enemyController enemy = hit.transform.GetComponentInParent<enemyController>();
+                if (enemy != null)
+                {
+                    enemy.TakeDamage();
+                }
+
             }
         }
     }

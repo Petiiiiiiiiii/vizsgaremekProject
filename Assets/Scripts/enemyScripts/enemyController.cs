@@ -31,7 +31,7 @@ public class enemyController : MonoBehaviour
         {
             StartCoroutine(Attack());
         }
-        else if (distanceToPlayer <= detectionRange)
+        else if (distanceToPlayer <= detectionRange || canSeePlayer)
         {
             canSeePlayer = true;
             if (agent.enabled)
@@ -68,5 +68,14 @@ public class enemyController : MonoBehaviour
 
         animator.SetBool("isAttacking", false);
         isAttacking = false;
+    }
+
+    public void TakeDamage()
+    {
+        canSeePlayer = true;
+        if (agent.enabled && player != null)
+        {
+            agent.SetDestination(player.position);
+        }
     }
 }
