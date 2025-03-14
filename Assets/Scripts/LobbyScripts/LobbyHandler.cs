@@ -99,12 +99,17 @@ public class LobbyHandler : MonoBehaviour
         else
         {
             string response = www.downloadHandler.text;
-            levelAndName.text = $"Level {response} - {username}";
+            string level = response.Split(';')[0];
+
+            levelAndName.text = $"Level {level} - {username}";
             sp.text = $"{PlayerPrefs.GetInt("SP")} SP";
-            playmenuLevel.text = response;
+
+            playmenuLevel.text = level;
             playmenuName.text = username;
-            skillsmenuLevel.text = response;
+            skillsmenuLevel.text = level;
             skillsmenuName.text = username;
+
+            PlayerPrefs.SetString("Permission", response.Split(';')[1]);
         }
     }
 }

@@ -5,18 +5,23 @@ using UnityEngine;
 public class AdminCuccmak : MonoBehaviour
 {
     private Transform player;
+    private string permission;
     private void Awake()
     {
         player = transform;
+        permission = PlayerPrefs.GetString("Permission");
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
+        if (permission == "1")
         {
-            PlayerPrefs.SetInt("playerLevel", 0);
-            PlayerPrefs.SetInt("playerXP", 0);
-            Debug.Log("player level: " + PlayerPrefs.GetInt("playerLevel") + " (resetelve)");
-            Debug.Log("player xp: " + PlayerPrefs.GetInt("playerXP") + " (resetelve)");
+            if (Input.GetKeyDown(KeyCode.Insert))
+            {
+                PlayerPrefs.SetInt("playerLevel", 0);
+                PlayerPrefs.SetInt("playerXP", 0);
+                Debug.Log("player level: " + PlayerPrefs.GetInt("playerLevel") + " (resetelve)");
+                Debug.Log("player xp: " + PlayerPrefs.GetInt("playerXP") + " (resetelve)");
+            }
         }
     }
 }
