@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 9454424}
   - component: {fileID: 9454423}
   m_Layer: 5
-  m_Name: Back (1)
+  m_Name: Play
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -222,7 +222,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 695519319}
         m_TargetAssemblyTypeName: LobbyHandler, Assembly-CSharp
-        m_MethodName: PlayBackButton
+        m_MethodName: PlayGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

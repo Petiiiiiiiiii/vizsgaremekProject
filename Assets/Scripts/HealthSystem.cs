@@ -26,22 +26,17 @@ public class HealthSystem : MonoBehaviour
             else if (currentHealth <= 75 && currentHealth > 25) healthUI.color = Color.yellow;
             else if (currentHealth <= 25) healthUI.color = Color.red;
         }
-        else 
-        {
-            Debug.Log("meghaltál");
-        }
     }
 
     public void TakeDmg(float dmg) 
     {
+        currentHealth -= dmg;
+
         if (currentHealth <= 0)
         {
-            Debug.Log("meghalt");
+            Debug.Log("meghalt a player, match feltoltes");
+            Time.timeScale = 0f;
         }
-        else 
-        {
-            currentHealth -= dmg;
-        }    
     }
 
     public void Heal(float heal) 

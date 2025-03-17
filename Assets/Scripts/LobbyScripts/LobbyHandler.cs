@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class LobbyHandler : MonoBehaviour
@@ -27,6 +29,10 @@ public class LobbyHandler : MonoBehaviour
     {
         username = PlayerPrefs.GetString("Username");
         StartCoroutine(Upload());
+    }
+    public void PlayGame() 
+    {
+        SceneManager.LoadScene("Map-1");
     }
     public void PlayButton() 
     {
@@ -100,6 +106,7 @@ public class LobbyHandler : MonoBehaviour
         {
             string response = www.downloadHandler.text;
             string level = response.Split(';')[0];
+            PlayerPrefs.SetInt("Level",Convert.ToInt32(level));
 
             levelAndName.text = $"Level {level} - {username}";
             sp.text = $"{PlayerPrefs.GetInt("SP")} SP";

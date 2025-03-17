@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ingameUI : MonoBehaviour
 {
@@ -14,8 +16,12 @@ public class ingameUI : MonoBehaviour
         playerName = GameObject.Find("usernameBG").GetComponentInChildren<TextMeshProUGUI>();
         StartCoroutine(UpdateEnemyCounterRoutine());
 
-        playerLevel.text = "999";
+        playerLevel.text = PlayerPrefs.GetInt("Level").ToString();
         playerName.text = PlayerPrefs.GetString("Username");
+    }
+    private void FixedUpdate()
+    {
+        playerLevel.text = PlayerPrefs.GetInt("playerLevel").ToString();
     }
 
     public void UpdateEnemyCount()
@@ -34,6 +40,12 @@ public class ingameUI : MonoBehaviour
         }
 
         remainingEnemies.text = "Enemies Left: " + enemyCount;
+
+        if (enemyCount == 0 && SceneManager.GetActiveScene().name == "Map-1") 
+        {
+            Debug.Log("nyert a player, match feltoltes");
+        }
+
     }
 
     IEnumerator UpdateEnemyCounterRoutine()
