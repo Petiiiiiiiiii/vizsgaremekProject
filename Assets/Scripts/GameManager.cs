@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
         if (isBossDead)
         {
-            Debug.Log("boss meghalt");
+            //Debug.Log("boss meghalt");
             bossRoom.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }

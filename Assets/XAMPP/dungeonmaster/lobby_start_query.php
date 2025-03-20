@@ -14,7 +14,7 @@
     $result = mysqli_stmt_get_result($stmt);
 
     if ($row = mysqli_fetch_assoc($result)) {
-        echo $row["Level"];
+        echo $row["Level"].";".$row["Permission"];
     } 
     else {
         echo "1: Ez kb lehetetlen";

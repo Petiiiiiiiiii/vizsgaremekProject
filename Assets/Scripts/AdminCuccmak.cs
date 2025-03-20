@@ -17,13 +17,13 @@ public class AdminCuccmak : MonoBehaviour
     {
         if (permission == "1")
         {
-            if (Input.GetKeyDown(KeyCode.Insert) && !adminPanel.activeInHierarchy)
+            if (Input.GetKeyDown(KeyCode.P) && !adminPanel.activeInHierarchy)
             {
                 adminPanel.SetActive(true);
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
-            else if (Input.GetKeyDown(KeyCode.Insert) && adminPanel.activeInHierarchy)
+            else if (Input.GetKeyDown(KeyCode.P) && adminPanel.activeInHierarchy)
             {
                 adminPanel.SetActive(false);
                 Cursor.lockState = CursorLockMode.Locked;
@@ -41,5 +41,9 @@ public class AdminCuccmak : MonoBehaviour
         PlayerPrefs.SetInt("playerXP", 0);
         Debug.Log("player level: " + PlayerPrefs.GetInt("playerLevel") + " (resetelve)");
         Debug.Log("player xp: " + PlayerPrefs.GetInt("playerXP") + " (resetelve)");
+    }
+    public void killAllEnemy() 
+    {
+        GameObject.Find("Enemies").SetActive(false);
     }
 }
