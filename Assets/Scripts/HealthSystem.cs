@@ -15,6 +15,8 @@ public class HealthSystem : MonoBehaviour
     public Slider healthSlider;
     public TextMeshProUGUI healthUI;
 
+    public GameObject deathPanel;
+
     void Start()
     {
         
@@ -56,6 +58,8 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth <= 0)
         {
             Debug.Log("meghalt a player, match feltoltes");
+            this.gameObject.SetActive(false);
+            deathPanel.SetActive(true);
             Time.timeScale = 0f;
         }
     }

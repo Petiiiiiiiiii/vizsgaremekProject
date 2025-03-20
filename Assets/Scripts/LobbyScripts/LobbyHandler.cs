@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class LobbyHandler : MonoBehaviour
@@ -24,15 +25,56 @@ public class LobbyHandler : MonoBehaviour
     public TextMeshProUGUI skillsmenuName;
     public TextMeshProUGUI skillsmenuLevel;
 
+    public TMP_Dropdown difficulty;
+    private string selectedDifficulty = "Medium";
+
+    public TextMeshProUGUI displayText;
+    public UnityEngine.UI.Button leftButton;
+    public UnityEngine.UI.Button rightButton;
+    private List<string> weapons = new List<string> {"AR","SMG"};
+    private int currentIndex = 0;
+
 
     private void Start()
     {
         username = PlayerPrefs.GetString("Username");
+        difficulty.onValueChanged.AddListener(OnDropdownValueChanged);
+        UpdateDisplay();
+        leftButton.onClick.AddListener(OnLeftButtonClicked);
+        rightButton.onClick.AddListener(OnRightButtonClicked);
         StartCoroutine(Upload());
+    }
+    void OnLeftButtonClicked()
+    {
+        currentIndex--;
+        if (currentIndex < 0)
+        {
+            currentIndex = weapons.Count - 1;
+        }
+        UpdateDisplay();
+    }
+
+    void OnRightButtonClicked()
+    {
+        currentIndex++;
+        if (currentIndex >= weapons.Count)
+        {
+            currentIndex = 0;
+        }
+        UpdateDisplay();
+    }
+
+    void UpdateDisplay()
+    {
+        displayText.text = weapons[currentIndex];
+    }
+    void OnDropdownValueChanged(int index)
+    {
+        selectedDifficulty = difficulty.options[index].text;
     }
     public void PlayGame() 
     {
-        SceneManager.LoadScene("Map-1");
+        SceneManager.LoadScene($"Map1-{weapons[currentIndex]}-{selectedDifficulty}");
     }
     public void PlayButton() 
     {

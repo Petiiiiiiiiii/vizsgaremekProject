@@ -17,4 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map1-AR-Easy.unity
     guid: 4c4b4f28742167141bc80e43f2af6c35
+  - enabled: 1
+    path: Assets/Scenes/Map1-AR-Medium.unity
+    guid: 0f0b0970a52648b44a50c105211dce37
+  - enabled: 1
+    path: Assets/Scenes/Map1-AR-Hard.unity
+    guid: 0313b4c3fb818e8418331914fd18c23e
   m_configObjects: {}
