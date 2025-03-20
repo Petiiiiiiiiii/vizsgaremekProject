@@ -6,6 +6,8 @@ public class AdminCuccmak : MonoBehaviour
 {
     private Transform player;
     private string permission;
+    public GameObject adminPanel;
+
     private void Awake()
     {
         player = transform;
@@ -15,13 +17,29 @@ public class AdminCuccmak : MonoBehaviour
     {
         if (permission == "1")
         {
-            if (Input.GetKeyDown(KeyCode.Insert))
+            if (Input.GetKeyDown(KeyCode.Insert) && !adminPanel.activeInHierarchy)
             {
-                PlayerPrefs.SetInt("playerLevel", 0);
-                PlayerPrefs.SetInt("playerXP", 0);
-                Debug.Log("player level: " + PlayerPrefs.GetInt("playerLevel") + " (resetelve)");
-                Debug.Log("player xp: " + PlayerPrefs.GetInt("playerXP") + " (resetelve)");
+                adminPanel.SetActive(true);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
+            else if (Input.GetKeyDown(KeyCode.Insert) && adminPanel.activeInHierarchy)
+            {
+                adminPanel.SetActive(false);
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            } 
         }
+    }
+    public void playerKill() 
+    {
+        this.GetComponent<HealthSystem>().TakeDmg(100);
+    }
+    public void xpReset()
+    {
+        PlayerPrefs.SetInt("playerLevel", 0);
+        PlayerPrefs.SetInt("playerXP", 0);
+        Debug.Log("player level: " + PlayerPrefs.GetInt("playerLevel") + " (resetelve)");
+        Debug.Log("player xp: " + PlayerPrefs.GetInt("playerXP") + " (resetelve)");
     }
 }

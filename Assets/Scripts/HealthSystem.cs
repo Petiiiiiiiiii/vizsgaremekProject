@@ -59,8 +59,10 @@ public class HealthSystem : MonoBehaviour
         {
             Debug.Log("meghalt a player, match feltoltes");
             this.gameObject.SetActive(false);
+            GameObject.Find("PlayerUI").SetActive(false);
             deathPanel.SetActive(true);
-            Time.timeScale = 0f;
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
