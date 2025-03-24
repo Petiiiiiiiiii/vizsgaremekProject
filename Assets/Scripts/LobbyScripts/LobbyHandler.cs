@@ -96,6 +96,15 @@ public class LobbyHandler : MonoBehaviour
         StartCoroutine(WaitForAnimSkills(false));
     }
 
+    public void SettingsButton() 
+    {
+        StartCoroutine(WaitForAnimSettings(true));
+    }
+    public void SettingsBackButton() 
+    {
+        StartCoroutine(WaitForAnimSettings(false));
+    }
+
     IEnumerator WaitForAnimSkills(bool value) 
     {
         if (value)
@@ -131,7 +140,22 @@ public class LobbyHandler : MonoBehaviour
         }
 
     }
+    IEnumerator WaitForAnimSettings(bool value)
+    {
+        if (value)
+        {
+            animator.SetBool("Settings", value);
+            LobbyUI.gameObject.SetActive(!value);
+            yield return new WaitForSeconds(1f);
+        }
+        else
+        {
+            animator.SetBool("Settings", value);
+            yield return new WaitForSeconds(1f);
+            LobbyUI.gameObject.SetActive(!value);
+        }
 
+    }
     IEnumerator Upload()
     {
         WWWForm form = new WWWForm();
@@ -160,5 +184,11 @@ public class LobbyHandler : MonoBehaviour
 
             PlayerPrefs.SetString("Permission", response.Split(';')[1]);
         }
+    }
+
+    public void Exit() 
+    {
+        Debug.Log("ki lett lépve");
+        //Application.Quit();
     }
 }
