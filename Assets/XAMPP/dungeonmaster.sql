@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2025. Már 14. 10:21
+-- Létrehozás ideje: 2025. Már 24. 12:04
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -150,7 +150,21 @@ INSERT INTO `players` (`PlayerID`, `Username`, `PasswordHash`, `Email`, `Level`,
 (40, 'luke3535', '$2y$10$ijklmnopqrstuvwxyz12345678901234567890', 'luke3535@example.com', 5, 0, '2026-02-20 06:04:35'),
 (41, 'maya3636', '$2y$10$jklmnopqrstuvwxyz123456789012345678901', 'maya3636@example.com', 9, 0, '2026-03-25 11:15:36'),
 (42, 'nora3737', '$2y$10$klmnopqrstuvwxyz1234567890123456789012', 'nora3737@example.com', 12, 0, '2026-04-30 16:26:37'),
-(43, 'admin', '$2y$10$z6SzX6dPpboTXqXr4/J/auZB/E8psUsCVNj.eiS.Vf1n47IYKuFjS', 'admin@admin.admin', 20, 1, '2025-03-13 09:52:39');
+(43, 'admin', '$2y$10$z6SzX6dPpboTXqXr4/J/auZB/E8psUsCVNj.eiS.Vf1n47IYKuFjS', 'admin@admin.admin', 20, 1, '2025-03-13 09:52:39'),
+(44, 'amdin', '$2y$10$HfdIqraepJdSUL5SQe7pvORFjdWXhH6fjS3jdDyghejQYT8CJD2FO', 'amdin@amdin.com', 0, 0, '2025-03-20 12:15:02'),
+(45, 'Sango2', '$2y$10$hJG922vPLNDXLsatmNWTVeidrB16hLZ80PUCh1sLpP0S965sPAgxa', 'sango@sango.cas', 0, 0, '2025-03-24 10:43:51');
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `unlockedskills`
+--
+
+CREATE TABLE `unlockedskills` (
+  `PlayerID` int(11) NOT NULL,
+  `Skill` int(2) DEFAULT 0,
+  `UnlockDate` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexek a kiírt táblákhoz
@@ -172,6 +186,12 @@ ALTER TABLE `players`
   ADD UNIQUE KEY `Email` (`Email`);
 
 --
+-- A tábla indexei `unlockedskills`
+--
+ALTER TABLE `unlockedskills`
+  ADD PRIMARY KEY (`PlayerID`);
+
+--
 -- A kiírt táblák AUTO_INCREMENT értéke
 --
 
@@ -185,7 +205,7 @@ ALTER TABLE `matchlogs`
 -- AUTO_INCREMENT a táblához `players`
 --
 ALTER TABLE `players`
-  MODIFY `PlayerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `PlayerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- Megkötések a kiírt táblákhoz
@@ -196,6 +216,12 @@ ALTER TABLE `players`
 --
 ALTER TABLE `matchlogs`
   ADD CONSTRAINT `matchlogs_ibfk_1` FOREIGN KEY (`PlayerID`) REFERENCES `players` (`PlayerID`) ON DELETE CASCADE;
+
+--
+-- Megkötések a táblához `unlockedskills`
+--
+ALTER TABLE `unlockedskills`
+  ADD CONSTRAINT `unlockedSkills` FOREIGN KEY (`PlayerID`) REFERENCES `players` (`PlayerID`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
