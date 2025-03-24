@@ -6,10 +6,16 @@ public class ExperienceSys : MonoBehaviour
 {
     public ParticleSystem levelUP;
     public GameObject levelUPtext;
+    private int xp;
+    private void Start()
+    {
+        xp = PlayerPrefs.GetInt("playerLevel") * 500;
+        PlayerPrefs.SetInt("playerXP", xp);
+    }
     public void enemyKill() 
     {
         PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 50);
-        int xp = PlayerPrefs.GetInt("playerXP");
+        xp = PlayerPrefs.GetInt("playerXP");
         int level = xp / 500;
         if((xp / 500) > PlayerPrefs.GetInt("playerLevel")) 
         {
@@ -29,7 +35,7 @@ public class ExperienceSys : MonoBehaviour
     public void bossKill() 
     {
         PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 500);
-        int xp = PlayerPrefs.GetInt("playerXP");
+        xp = PlayerPrefs.GetInt("playerXP");
         int level = xp / 500;
         if ((xp / 500) > PlayerPrefs.GetInt("playerLevel"))
         {

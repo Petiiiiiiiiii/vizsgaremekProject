@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,7 +15,7 @@ public class ingameUI : MonoBehaviour
         playerName = GameObject.Find("usernameBG").GetComponentInChildren<TextMeshProUGUI>();
         StartCoroutine(UpdateEnemyCounterRoutine());
 
-        playerLevel.text = PlayerPrefs.GetInt("Level").ToString();
+        playerLevel.text = PlayerPrefs.GetInt("playerLevel").ToString();
         playerName.text = PlayerPrefs.GetString("Username");
     }
     private void FixedUpdate()

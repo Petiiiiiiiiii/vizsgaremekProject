@@ -148,7 +148,7 @@ public class LobbyHandler : MonoBehaviour
         {
             string response = www.downloadHandler.text;
             string level = response.Split(';')[0];
-            PlayerPrefs.SetInt("Level",Convert.ToInt32(level));
+            PlayerPrefs.SetInt("playerLevel",Convert.ToInt32(level));
 
             levelAndName.text = $"Level {level} - {username}";
             sp.text = $"{PlayerPrefs.GetInt("SP")} SP";
