@@ -1848,7 +1848,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 44edc4a2dcf01a34ca55c4bdd972396f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 848711d69857fd643be511753b890fb9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1968,7 +1968,7 @@ GameObject:
   - component: {fileID: 229087270}
   - component: {fileID: 229087269}
   m_Layer: 5
-  m_Name: Image
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3694,7 +3694,7 @@ GameObject:
   - component: {fileID: 554389546}
   - component: {fileID: 554389545}
   m_Layer: 5
-  m_Name: HP_boost (1)
+  m_Name: HeadshotCrit_boost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3746,8 +3746,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 1283243492}
-  title: hp boost
-  desc: +50 hp
+  title: critical damage boost
+  desc: +20% critical damage
   cost: '[ 1 SP ]'
 --- !u!114 &554389547
 MonoBehaviour:
@@ -4637,7 +4637,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1eb1689c9957ac54184710b5fece8b31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 99262c7e8a44bd94bac6c219405d6385, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5887,7 +5887,7 @@ GameObject:
   - component: {fileID: 807797316}
   - component: {fileID: 807797315}
   m_Layer: 5
-  m_Name: DMG_boost (2)
+  m_Name: Mag_boost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5940,8 +5940,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 1283243492}
-  title: damage boost
-  desc: +20% damage
+  title: bigger mags
+  desc: + 5 bullet / mag
   cost: '[ 1 SP ]'
 --- !u!114 &807797317
 MonoBehaviour:
@@ -9819,7 +9819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 44edc4a2dcf01a34ca55c4bdd972396f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9c21a6cd77b5d7c4fbd67fd9ec78b90f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10175,7 +10175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1eb1689c9957ac54184710b5fece8b31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 68a642efd8060814494d76925b7f9ddb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13147,7 +13147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1eb1689c9957ac54184710b5fece8b31, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8cd8d466a8c58ab4fa7f3bbe8988b99f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14417,7 +14417,7 @@ GameObject:
   - component: {fileID: 1913467460}
   - component: {fileID: 1913467459}
   m_Layer: 5
-  m_Name: DMG_boost (1)
+  m_Name: movementSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14470,8 +14470,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   popup: {fileID: 1283243492}
-  title: damage boost
-  desc: +20% damage
+  title: movement speed
+  desc: +10% movement speed
   cost: '[ 1 SP ]'
 --- !u!114 &1913467461
 MonoBehaviour:
