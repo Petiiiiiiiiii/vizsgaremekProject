@@ -19,7 +19,6 @@ public class LobbyHandler : MonoBehaviour
 
     private string username;
     public TextMeshProUGUI levelAndName;
-    public TextMeshProUGUI sp;
     public TextMeshProUGUI playmenuLevel;
     public TextMeshProUGUI playmenuName;
     public TextMeshProUGUI skillsmenuName;
@@ -44,6 +43,7 @@ public class LobbyHandler : MonoBehaviour
         rightButton.onClick.AddListener(OnRightButtonClicked);
         StartCoroutine(Upload());
     }
+
     void OnLeftButtonClicked()
     {
         currentIndex--;
@@ -175,7 +175,6 @@ public class LobbyHandler : MonoBehaviour
             PlayerPrefs.SetInt("playerLevel",Convert.ToInt32(level));
 
             levelAndName.text = $"Level {level} - {username}";
-            sp.text = $"{PlayerPrefs.GetInt("SP")} SP";
 
             playmenuLevel.text = level;
             playmenuName.text = username;
@@ -184,6 +183,11 @@ public class LobbyHandler : MonoBehaviour
 
             PlayerPrefs.SetString("Permission", response.Split(';')[1]);
         }
+    }
+
+    public void BuySkill() 
+    {
+
     }
 
     public void Exit() 

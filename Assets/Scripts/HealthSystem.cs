@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
 {
-    [SerializeField] private float currentHealth = 100;
-    //[SerializeField] private float maxHealth = 100;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private float maxHealth;
 
     public GameObject damageIndicator;
 
@@ -18,13 +18,20 @@ public class HealthSystem : MonoBehaviour
 
     void Start()
     {
-        
+        currentHealth = 100;
+        maxHealth = 100;
+
+        if (PlayerPrefs.GetString("hp_boost") == "unlocked") 
+        {
+            currentHealth = 150;
+            maxHealth = 150;
+        }
     }
     void Update()
     {
         if (currentHealth >= 0)
         {
-            healthSlider.value = currentHealth / 100;
+            healthSlider.value = currentHealth / maxHealth;
             healthUI.text = $"{currentHealth}";
             if (currentHealth > 75)
             {

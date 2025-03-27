@@ -50,6 +50,11 @@ public class AR : Weapon
         maxMag = 30;
         currentMag = 30;
         allAmmo = 210;
+
+        if (PlayerPrefs.GetString("dmg_boost") == "unlocked") damage *= 1.2f;
+        if (PlayerPrefs.GetString("headshot_boost") == "unlocked") headshotDamage *= 1.2f;
+        if (PlayerPrefs.GetString("mag_boost") == "unlocked") maxMag = 35;
+        if (PlayerPrefs.GetString("firerate_boost") == "unlocked") fireSpeed *= 1.2f;
     }
 
     private void Update()
@@ -170,7 +175,7 @@ public class AR : Weapon
             Target target = hit.transform.GetComponentInParent<Target>();
             if (target != null)
             {
-                float appliedDamage = (hit.transform.CompareTag("enemyHead")) ? damage * 2 : damage;
+                float appliedDamage = (hit.transform.CompareTag("enemyHead")) ? headshotDamage : damage;
 
                 if (hit.transform.CompareTag("enemyHead"))
                 {

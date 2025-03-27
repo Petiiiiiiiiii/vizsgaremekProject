@@ -47,9 +47,14 @@ public class SMG : Weapon
         headshotDamage = 40f;
         range = 100f;
 
-        maxMag = 30;
-        currentMag = 30;
+        maxMag = 40;
+        currentMag = 40;
         allAmmo = 210;
+
+        if (PlayerPrefs.GetString("dmg_boost") == "unlocked") damage *= 1.2f;
+        if (PlayerPrefs.GetString("headshot_boost") == "unlocked") headshotDamage *= 1.2f;
+        if (PlayerPrefs.GetString("mag_boost") == "unlocked") maxMag = 45;
+        if (PlayerPrefs.GetString("firerate_boost") == "unlocked") fireSpeed *= 1.2f;
     }
 
     private void Update()
@@ -170,7 +175,7 @@ public class SMG : Weapon
             Target target = hit.transform.GetComponentInParent<Target>();
             if (target != null)
             {
-                float appliedDamage = (hit.transform.CompareTag("enemyHead")) ? damage * 2 : damage;
+                float appliedDamage = (hit.transform.CompareTag("enemyHead")) ? headshotDamage : damage;
 
                 if (hit.transform.CompareTag("enemyHead"))
                 {

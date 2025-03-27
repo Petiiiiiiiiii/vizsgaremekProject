@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float walkingSpeed = 7.5f;
-    public float runningSpeed = 11.5f;
+    public float walkingSpeed;
+    public float runningSpeed;
     public float jumpSpeed = 8.0f;
     public float gravity = 20.0f;
     public Camera playerCamera;
@@ -29,9 +29,17 @@ public class PlayerController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
-        // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        walkingSpeed = 5f;
+        runningSpeed = 8f;
+
+        if (PlayerPrefs.GetString("movement_boost") == "unlocked")
+        {
+            walkingSpeed *= 1.2f;
+            runningSpeed *= 1.2f;
+        }
     }
 
     void Update()
