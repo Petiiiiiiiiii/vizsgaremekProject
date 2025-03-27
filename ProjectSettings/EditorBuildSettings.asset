@@ -23,4 +23,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Map1-AR-Hard.unity
     guid: 0313b4c3fb818e8418331914fd18c23e
+  - enabled: 1
+    path: Assets/Scenes/Map1-SMG-Easy.unity
+    guid: 6b69607f7f618eb4ca1284fe8bd785c5
+  - enabled: 1
+    path: Assets/Scenes/Map1-SMG-Medium.unity
+    guid: a1c9f37659f65244b92a04a4a68c9478
+  - enabled: 1
+    path: Assets/Scenes/Map1-SMG-Hard.unity
+    guid: 9b47592dfafd94c43b3030e877ddd6c8
   m_configObjects: {}

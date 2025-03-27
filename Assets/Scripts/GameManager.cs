@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        player = "player - G36C";
         allObjects = FindObjectsOfType<GameObject>();
         isBossDead = false;
     }
