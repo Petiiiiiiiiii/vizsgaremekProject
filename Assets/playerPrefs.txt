@@ -1,0 +1,21 @@
+hasznalatban levo PlayerPrefs
+
+Skillek
+--------------------------------------------------------
+dmg_boost (string) -> "locked" vagy "unlocked"
+hp_boost (string) -> "locked" vagy "unlocked"
+headshot_boost (string) -> "locked" vagy "unlocked"
+mag_boost (string) -> "locked" vagy "unlocked"
+firerate_boost (string) -> "locked" vagy "unlocked"
+movement_boost (string) -> "locked" vagy "unlocked"
+
+AR_weapon (string) -> "locked" vagy "unlocked"
+--------------------------------------------------------
+
+Player adatok
+--------------------------------------------------------
+Permission (string) -> "1" vagy "0"
+playerLevel (int) -> 1 és 100 között
+Username (string) -> játékos neve
+playerXP (int) -> játékos össz xp-je
+SP (int) -> játékos össz elhasználható Skill pointja
