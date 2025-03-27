@@ -42,9 +42,9 @@ public class SMG : Weapon
 
     private void Start()
     {
-        fireSpeed = 8f;
-        damage = 20f;
-        headshotDamage = 50f;
+        fireSpeed = 10f;
+        damage = 17f;
+        headshotDamage = 40f;
         range = 100f;
 
         maxMag = 30;
@@ -227,13 +227,13 @@ public class SMG : Weapon
         if (!hitPoint)
         {
             hitMarker.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
             hitMarker.SetActive(false);
         }
         else 
         {
             hitMarkerHead.SetActive(true);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.05f);
             hitMarkerHead.SetActive(false);
         }
 
