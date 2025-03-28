@@ -13,6 +13,8 @@ public class Skills : MonoBehaviour
     [SerializeField] private List<Button> btns;
     [SerializeField] private List<GameObject> checkmarks;
 
+    [SerializeField] private GameObject errorPanel;
+
     private void Update()
     {
         //availableSP = PlayerPrefs.GetInt("SP");
@@ -29,10 +31,7 @@ public class Skills : MonoBehaviour
             btns[0].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[0].SetActive(true);
         }
-        else 
-        {
-            Debug.Log("nincs elég skillpoint");
-        }
+        else StartCoroutine(ErrorPoup());
     }
     public void hp_boost() 
     {
@@ -43,10 +42,7 @@ public class Skills : MonoBehaviour
             btns[1].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[1].SetActive(true);
         }
-        else
-        {
-            Debug.Log("nincs elég skillpoint");
-        }
+        else StartCoroutine(ErrorPoup());
     }
     public void firerate_boost() 
     {
@@ -57,10 +53,7 @@ public class Skills : MonoBehaviour
             btns[2].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[2].SetActive(true);
         }
-        else
-        {
-            Debug.Log("nincs elég skillpoint");
-        }
+        else StartCoroutine(ErrorPoup());
     }
     public void headshot_boost() 
     {
@@ -71,10 +64,7 @@ public class Skills : MonoBehaviour
             btns[3].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[3].SetActive(true);
         }
-        else
-        {
-            Debug.Log("nincs elég skillpoint");
-        }
+        else StartCoroutine(ErrorPoup());
     }
     public void movement_boost() 
     {
@@ -85,10 +75,7 @@ public class Skills : MonoBehaviour
             btns[4].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[4].SetActive(true);
         }
-        else
-        {
-            Debug.Log("nincs elég skillpoint");
-        }
+        else StartCoroutine(ErrorPoup());
     }
     public void mag_boost() 
     {
@@ -99,10 +86,7 @@ public class Skills : MonoBehaviour
             btns[5].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[5].SetActive(true);
         }
-        else
-        {
-            Debug.Log("nincs elég skillpoint");
-        }
+        else StartCoroutine(ErrorPoup());
     }
 
     public void AR_unlock() 
@@ -114,9 +98,13 @@ public class Skills : MonoBehaviour
             btns[6].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[6].SetActive(true);
         }
-        else
-        {
-            Debug.Log("nincs elég skillpoint");
-        }
+        else StartCoroutine(ErrorPoup());
+    }
+
+    IEnumerator ErrorPoup() 
+    {
+        errorPanel.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        errorPanel.SetActive(false);
     }
 }
