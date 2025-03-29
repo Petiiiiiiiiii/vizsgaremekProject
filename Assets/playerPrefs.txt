@@ -19,3 +19,12 @@ playerLevel (int) -> 1 és 100 között
 Username (string) -> játékos neve
 playerXP (int) -> játékos össz xp-je
 SP (int) -> játékos össz elhasználható Skill pointja
+--------------------------------------------------------
+
+Settings
+--------------------------------------------------------
+displayMode (string) -> FullScreenMode-nak dolgai
+refreshRate (int) -> {60,120,144,165}
+volumeLevel (float) -> 0 és 1 között
+sensitivity (float) -> 0 és 5 között
+--------------------------------------------------------

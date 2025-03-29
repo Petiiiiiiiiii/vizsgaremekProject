@@ -3309,7 +3309,6 @@ GameObject:
   - component: {fileID: 377670267}
   - component: {fileID: 377670269}
   - component: {fileID: 377670268}
-  - component: {fileID: 377670270}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -3374,19 +3373,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 377670266}
   m_CullTransparentMesh: 1
---- !u!114 &377670270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 377670266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1743f84a404ff74296e22a7f7f84201, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handCursor: {fileID: 2800000, guid: ae043f48b286cc64b9c3ccb07fd03edc, type: 3}
 --- !u!1 &379117514
 GameObject:
   m_ObjectHideFlags: 0
@@ -5968,6 +5954,7 @@ GameObject:
   - component: {fileID: 695519320}
   - component: {fileID: 695519319}
   - component: {fileID: 695519321}
+  - component: {fileID: 695519322}
   m_Layer: 0
   m_Name: LobbyHandler
   m_TagString: Untagged
@@ -6047,6 +6034,22 @@ MonoBehaviour:
   - {fileID: 237009492}
   - {fileID: 665102489}
   errorPanel: {fileID: 2136500426}
+--- !u!114 &695519322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 695519318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa6aaed2d6161ab43a4b883e2a49e7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayModeDropdown: {fileID: 1349338790}
+  refreshRateDropdown: {fileID: 1541794220}
+  VolumeSlider: {fileID: 971830665}
+  Sensitivity: {fileID: 654120407}
 --- !u!1 &736724785
 GameObject:
   m_ObjectHideFlags: 0
@@ -11876,6 +11879,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Windowed
       m_Image: {fileID: 0}
+    - m_Text: Borderless
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -13132,7 +13137,6 @@ GameObject:
   - component: {fileID: 1559625390}
   - component: {fileID: 1559625393}
   - component: {fileID: 1559625392}
-  - component: {fileID: 1559625391}
   m_Layer: 0
   m_Name: Handle
   m_TagString: Untagged
@@ -13159,19 +13163,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1559625391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1559625389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1743f84a404ff74296e22a7f7f84201, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  handCursor: {fileID: 2800000, guid: ae043f48b286cc64b9c3ccb07fd03edc, type: 3}
 --- !u!114 &1559625392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15270,7 +15261,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1855162795}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 695519322}
+        m_TargetAssemblyTypeName: SettingsController, Assembly-CSharp
+        m_MethodName: ApplySettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1855162795
 MonoBehaviour:
   m_ObjectHideFlags: 0

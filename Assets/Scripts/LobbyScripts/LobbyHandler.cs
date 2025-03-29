@@ -193,6 +193,6 @@ public class LobbyHandler : MonoBehaviour
     public void Exit() 
     {
         Debug.Log("ki lett lépve");
-        //Application.Quit();
+        Application.Quit();
     }
 }
