@@ -13,15 +13,18 @@ public class SettingsController : MonoBehaviour
     public Slider VolumeSlider;
     public Slider Sensitivity;
 
-    private void Start()
+    public GameObject success;
+
+    private IEnumerator Start()
     {
+        yield return null;
         FullScreenMode mode = FullScreenMode.ExclusiveFullScreen;
         int refreshRate = 60;
 
         int displayModeIndex = 0;
         int refreshRateIndex = 0;
 
-        if (PlayerPrefs.GetString("displayMode") != null) 
+        if (PlayerPrefs.HasKey("displayMode"))
         {
             switch (PlayerPrefs.GetString("displayMode"))
             {
@@ -43,11 +46,19 @@ public class SettingsController : MonoBehaviour
         displayModeDropdown.value = displayModeIndex;
         refreshRateDropdown.value = refreshRateIndex;
 
-        if (mode == FullScreenMode.Windowed) Screen.SetResolution(1280, 720, mode, refreshRate);
-        else Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, mode, refreshRate);
+        //fps lock
+        if (mode == FullScreenMode.Windowed)
+        {
+            Screen.SetResolution(1280, 720, mode);
+            Application.targetFrameRate = refreshRate;
+        }
+        else 
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, mode);
+            Application.targetFrameRate = refreshRate;
+        }
 
- 
-
+        //volume
         if (PlayerPrefs.HasKey("volumeLevel"))
         {
             VolumeSlider.value = PlayerPrefs.GetFloat("volumeLevel");
@@ -59,9 +70,11 @@ public class SettingsController : MonoBehaviour
             AudioListener.volume = VolumeSlider.value;
         }
 
+        //sensitivity
         if (PlayerPrefs.HasKey("sensitivity")) Sensitivity.value = PlayerPrefs.GetFloat("sensitivity");
         else Sensitivity.value = 0.4f;
     }
+
     public void ApplySettings()
     {
         FullScreenMode mode = FullScreenMode.ExclusiveFullScreen;
@@ -83,8 +96,16 @@ public class SettingsController : MonoBehaviour
             case 4: refreshRate = 200; break;
         }
 
-        if (mode == FullScreenMode.Windowed) Screen.SetResolution(1280, 720, mode, refreshRate);
-        else Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, mode, refreshRate);
+        if (mode == FullScreenMode.Windowed)
+        {
+            Screen.SetResolution(1280, 720, mode);
+            Application.targetFrameRate = refreshRate;
+        }
+        else 
+        {
+            Screen.SetResolution(Screen.currentResolution.width, Screen.currentResolution.height, mode);
+            Application.targetFrameRate = refreshRate;
+        }
 
         AudioListener.volume = VolumeSlider.value;
 
@@ -92,5 +113,15 @@ public class SettingsController : MonoBehaviour
         PlayerPrefs.SetString("displayMode", mode.ToString());
         PlayerPrefs.SetInt("refreshRate", refreshRate);
         PlayerPrefs.SetFloat("sensitivity", Sensitivity.value);
+
+        StartCoroutine(SaveCompleted());
     }
+
+    public IEnumerator SaveCompleted() 
+    {
+        success.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        success.SetActive(false);
+    }
+
 }

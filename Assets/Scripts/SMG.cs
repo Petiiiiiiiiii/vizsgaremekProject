@@ -36,6 +36,7 @@ public class SMG : Weapon
     public bool waiting = false;
     private float timer = 0f;
     private float nextTimeToFire = 0f;
+    public bool canShoot;
 
     public bool fireMode = true;
     public TextMeshProUGUI fireModeText;
@@ -50,6 +51,8 @@ public class SMG : Weapon
         maxMag = 40;
         currentMag = 40;
         allAmmo = 210;
+
+        canShoot = true;
 
         if (PlayerPrefs.GetString("dmg_boost") == "unlocked") damage *= 1.2f;
         if (PlayerPrefs.GetString("headshot_boost") == "unlocked") headshotDamage *= 1.2f;
@@ -74,7 +77,7 @@ public class SMG : Weapon
 
         if (fireMode)
         {
-            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
+            if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && currentMag > 0 && canShoot)
             {
                 nextTimeToFire = Time.time + 1f / fireSpeed;
                 Shoot();
@@ -83,7 +86,7 @@ public class SMG : Weapon
         }
         else
         {
-            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire && currentMag > 0)
+            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire && currentMag > 0 && canShoot)
             {
                 nextTimeToFire = Time.time + 1f / fireSpeed;
                 Shoot();

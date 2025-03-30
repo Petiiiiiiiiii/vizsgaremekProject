@@ -10,10 +10,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool isBossDead;
     public GameObject bossRoom;
 
-    void Start()
+    int refreshRate = 60;
+
+    private IEnumerator Start()
     {
+        yield return null;
+
         allObjects = FindObjectsOfType<GameObject>();
         isBossDead = false;
+
+        switch (PlayerPrefs.GetInt("refreshRate"))
+        {
+            case 60: refreshRate = 60; break;
+            case 120: refreshRate = 120; break;
+            case 144: refreshRate = 144; break;
+            case 165: refreshRate = 165; break;
+            case 200: refreshRate = 200; break;
+        }
+
+        Application.targetFrameRate = refreshRate;
     }
     private void Update()
     {
