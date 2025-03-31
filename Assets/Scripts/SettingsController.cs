@@ -72,7 +72,7 @@ public class SettingsController : MonoBehaviour
 
         //sensitivity
         if (PlayerPrefs.HasKey("sensitivity")) Sensitivity.value = PlayerPrefs.GetFloat("sensitivity");
-        else Sensitivity.value = 0.4f;
+        else Sensitivity.value = 0.8f;
     }
 
     public void ApplySettings()

@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = 20.0f;
     public Camera playerCamera;
     public float lookSpeed;
+    public const float baseLookSpeed = 2f;
     public float lookXLimit = 90.0f;
 
     CharacterController characterController;
@@ -43,12 +44,12 @@ public class PlayerController : MonoBehaviour
             runningSpeed *= 1.1f;
         }
 
-        if (PlayerPrefs.HasKey("sensitivity")) lookSpeed *= PlayerPrefs.GetFloat("sensitivity");
+        if (PlayerPrefs.HasKey("sensitivity")) lookSpeed = baseLookSpeed * PlayerPrefs.GetFloat("sensitivity");
     }
 
     public void SetSensitivity() 
     {
-        if (PlayerPrefs.HasKey("sensitivity")) lookSpeed *= PlayerPrefs.GetFloat("sensitivity");
+        if (PlayerPrefs.HasKey("sensitivity")) lookSpeed = baseLookSpeed * PlayerPrefs.GetFloat("sensitivity");
     }
 
     void Update()

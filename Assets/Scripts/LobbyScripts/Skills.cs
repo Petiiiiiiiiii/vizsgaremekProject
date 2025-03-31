@@ -15,6 +15,128 @@ public class Skills : MonoBehaviour
 
     [SerializeField] private GameObject errorPanel;
 
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("AR_weapon")) 
+        {
+            switch (PlayerPrefs.GetString("AR_weapon"))
+            {
+                case "unlocked":
+                    btns[6].gameObject.GetComponent<Button>().enabled = false;
+                    checkmarks[6].SetActive(true);
+                    break;
+                case "locked":
+                    btns[6].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[6].SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("dmg_boost"))
+        {
+            switch (PlayerPrefs.GetString("dmg_boost"))
+            {
+                case "unlocked":
+                    btns[0].gameObject.GetComponent<Button>().enabled = false;
+                    checkmarks[0].SetActive(true);
+                    break;
+                case "locked":
+                    btns[0].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[0].SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("hp_boost"))
+        {
+            switch (PlayerPrefs.GetString("hp_boost"))
+            {
+                case "unlocked":
+                    btns[1].gameObject.GetComponent<Button>().enabled = false;
+                    checkmarks[1].SetActive(true);
+                    break;
+                case "locked":
+                    btns[0].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[0].SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("headshot_boost"))
+        {
+            switch (PlayerPrefs.GetString("headshot_boost"))
+            {
+                case "unlocked":
+                    btns[3].gameObject.GetComponent<Button>().enabled = false;
+                    checkmarks[3].SetActive(true);
+                    break;
+                case "locked":
+                    btns[3].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[3].SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("mag_boost"))
+        {
+            switch (PlayerPrefs.GetString("mag_boost"))
+            {
+                case "unlocked":
+                    btns[5].gameObject.GetComponent<Button>().enabled = false;
+                    checkmarks[5].SetActive(true);
+                    break;
+                case "locked":
+                    btns[5].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[5].SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("firerate_boost"))
+        {
+            switch (PlayerPrefs.GetString("firerate_boost"))
+            {
+                case "unlocked":
+                    btns[2].gameObject.GetComponent<Button>().enabled = false;
+                    checkmarks[2].SetActive(true);
+                    break;
+                case "locked":
+                    btns[2].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[2].SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        if (PlayerPrefs.HasKey("movement_boost"))
+        {
+            switch (PlayerPrefs.GetString("movement_boost"))
+            {
+                case "unlocked":
+                    btns[4].gameObject.GetComponent<Button>().enabled = false;
+                    checkmarks[4].SetActive(true);
+                    break;
+                case "locked":
+                    btns[4].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[4].SetActive(false);
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private void Update()
     {
         //availableSP = PlayerPrefs.GetInt("SP");
@@ -94,7 +216,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 10)
         {
             availableSP -= 10;
-            Debug.Log("AR megvéve");
+            PlayerPrefs.SetString("AR_weapon","unlocked");
             btns[6].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[6].SetActive(true);
         }

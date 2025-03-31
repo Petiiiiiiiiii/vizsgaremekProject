@@ -16,6 +16,7 @@ public class LobbyHandler : MonoBehaviour
     [SerializeField] Canvas LobbyUI;
     [SerializeField] Canvas SkillsUI;
     [SerializeField] Canvas PlayUI;
+    [SerializeField] GameObject wrongWeaponType;
 
     private string username;
     public TextMeshProUGUI levelAndName;
@@ -74,7 +75,16 @@ public class LobbyHandler : MonoBehaviour
     }
     public void PlayGame() 
     {
-        SceneManager.LoadScene($"Map1-{weapons[currentIndex]}-{selectedDifficulty}");
+        if (weapons[currentIndex] == "AR")
+        {
+            if (PlayerPrefs.GetString("AR_weapon") == "unlocked")
+            {
+                SceneManager.LoadScene($"Map1-{weapons[currentIndex]}-{selectedDifficulty}");
+            }
+            else StartCoroutine(AR_not_unlocked());
+        }
+        else SceneManager.LoadScene($"Map1-{weapons[currentIndex]}-{selectedDifficulty}");
+
     }
     public void PlayButton() 
     {
@@ -194,5 +204,12 @@ public class LobbyHandler : MonoBehaviour
     {
         Debug.Log("ki lett lépve");
         Application.Quit();
+    }
+
+    IEnumerator AR_not_unlocked()
+    {
+        wrongWeaponType.SetActive(true);
+        yield return new WaitForSeconds(2f);
+        wrongWeaponType.SetActive(false);
     }
 }
