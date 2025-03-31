@@ -160,7 +160,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 5)
         {
             availableSP -= 5;
-            Debug.Log("hp megvéve");
+            PlayerPrefs.SetString("hp_boost", "unlocked");
             btns[1].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[1].SetActive(true);
         }

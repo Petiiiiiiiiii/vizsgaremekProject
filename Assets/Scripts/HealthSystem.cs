@@ -12,7 +12,8 @@ public class HealthSystem : MonoBehaviour
     public GameObject damageIndicator;
 
     public Slider healthSlider;
-    public TextMeshProUGUI healthUI;
+    public TextMeshProUGUI currentHP_text;
+    public TextMeshProUGUI maxHP_text;
 
     public GameObject deathPanel;
 
@@ -32,18 +33,19 @@ public class HealthSystem : MonoBehaviour
         if (currentHealth >= 0)
         {
             healthSlider.value = currentHealth / maxHealth;
-            healthUI.text = $"{currentHealth}";
+            currentHP_text.text = $"{currentHealth}";
+            maxHP_text.text = $"{maxHealth}";
             if (currentHealth > 75)
             {
-                healthUI.color = Color.white;
+                currentHP_text.color = Color.white;
             } 
             else if (currentHealth <= 75 && currentHealth > 25)
             {
-                healthUI.color = Color.yellow;
+                currentHP_text.color = Color.yellow;
             } 
             else if (currentHealth <= 25)
             {
-                healthUI.color = Color.red;
+                currentHP_text.color = Color.red;
             } 
 
             
