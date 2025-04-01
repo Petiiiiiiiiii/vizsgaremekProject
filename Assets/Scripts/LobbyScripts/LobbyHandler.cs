@@ -176,7 +176,7 @@ public class LobbyHandler : MonoBehaviour
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError("Hálózati hiba: " + www.error);
+            //Debug.LogError("Hálózati hiba: " + www.error);
         }
         else
         {

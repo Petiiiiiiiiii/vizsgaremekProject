@@ -1,0 +1,6 @@
+@dungeonMaster_db_HostAddress = http://localhost:5163
+
+GET {{dungeonMaster_db_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

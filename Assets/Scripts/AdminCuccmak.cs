@@ -15,20 +15,33 @@ public class AdminCuccmak : MonoBehaviour
     }
     private void Update()
     {
-        if (permission == "1")
+        //if (permission == "1")
+        //{
+        //    if (Input.GetKeyDown(KeyCode.P) && !adminPanel.activeInHierarchy)
+        //    {
+        //        adminPanel.SetActive(true);
+        //        Cursor.lockState = CursorLockMode.None;
+        //        Cursor.visible = true;
+        //    }
+        //    else if (Input.GetKeyDown(KeyCode.P) && adminPanel.activeInHierarchy)
+        //    {
+        //        adminPanel.SetActive(false);
+        //        Cursor.lockState = CursorLockMode.Locked;
+        //        Cursor.visible = false;
+        //    } 
+        //}
+
+        if (Input.GetKeyDown(KeyCode.P) && !adminPanel.activeInHierarchy)
         {
-            if (Input.GetKeyDown(KeyCode.P) && !adminPanel.activeInHierarchy)
-            {
-                adminPanel.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.P) && adminPanel.activeInHierarchy)
-            {
-                adminPanel.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            } 
+            adminPanel.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.P) && adminPanel.activeInHierarchy)
+        {
+            adminPanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
     public void playerKill() 

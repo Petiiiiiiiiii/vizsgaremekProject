@@ -1,0 +1,133 @@
+-- Create the database
+--CREATE DATABASE DungeonMaster;
+
+--USE DungeonMaster;
+
+-- Players table
+CREATE TABLE Players (
+    PlayerID INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(50) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    Level INT NOT NULL DEFAULT 0,
+    SP INT NOT NULL DEFAULT 0,
+    Permission INT NOT NULL DEFAULT 0,
+    RegDate DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+-- MatchLogs table
+CREATE TABLE MatchLogs (
+    MatchID INT IDENTITY(1,1) PRIMARY KEY,
+    PlayerID INT NOT NULL,
+    Kills INT DEFAULT 0,
+    MatchDuration INT NOT NULL,
+    Win BIT NOT NULL,
+    CONSTRAINT FK_MatchLogs_Players FOREIGN KEY (PlayerID) REFERENCES Players(PlayerID) ON DELETE CASCADE
+);
+
+-- UnlockedSkills table
+CREATE TABLE UnlockedSkills (
+    PlayerID INT PRIMARY KEY,
+    Skill INT DEFAULT 0,
+    UnlockDate DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_UnlockedSkills_Players FOREIGN KEY (PlayerID) REFERENCES Players(PlayerID) ON DELETE CASCADE
+);
+
+-- Insert sample data into Players
+INSERT INTO Players (Username, PasswordHash, Email, Level, Permission, RegDate)
+VALUES 
+('sango', '$2y$10$xauXn7cweWIFLW.Uuu9zWOMBSpAWWt4rTNdjFzCO0HNAKN.Ec8zxu', 'sango@sango.sango', 100, 1, '2025-03-10 00:00:00'),
+('bob456', '$2y$10$abcd5678efgh90ijklmnopqrstuvwxyz1234', 'bob456@example.com', 10, 0, '2023-02-20 14:22:33'),
+('charlie789', '$2y$10$efgh90ijklmnopqrstuvwxyz1234abcd5678', 'charlie789@example.com', 3, 0, '2023-03-25 09:45:12'),
+('dave101', '$2y$10$ijklmnopqrstuvwxyz1234abcd5678efgh90', 'dave101@example.com', 7, 0, '2023-04-30 18:11:44'),
+('eve202', '$2y$10$klmnopqrstuvwxyz1234abcd5678efgh90ij', 'eve202@example.com', 12, 0, '2023-05-05 22:33:55'),
+('frank303', '$2y$10$mnopqrstuvwxyz1234abcd5678efgh90ijkl', 'frank303@example.com', 8, 0, '2023-06-10 07:59:01'),
+('grace404', '$2y$10$nopqrstuvwxyz1234abcd5678efgh90ijklmn', 'grace404@example.com', 15, 0, '2023-07-15 13:14:16'),
+('hank505', '$2y$10$opqrstuvwxyz1234abcd5678efgh90ijklmno', 'hank505@example.com', 6, 0, '2023-08-20 19:20:21'),
+('ivy606', '$2y$10$pqrstuvwxyz1234abcd5678efgh90ijklmnop', 'ivy606@example.com', 9, 0, '2023-09-25 23:45:34'),
+('jack707', '$2y$10$qrstuvwxyz1234abcd5678efgh90ijklmnopq', 'jack707@example.com', 4, 0, '2023-10-30 04:56:47'),
+('kate808', '$2y$10$rstuvwxyz1234abcd5678efgh90ijklmnopqr', 'kate808@example.com', 11, 0, '2023-11-05 10:07:58'),
+('leo909', '$2y$10$stuvwxyz1234abcd5678efgh90ijklmnopqrs', 'leo909@example.com', 2, 0, '2023-12-10 15:18:09'),
+('mia1010', '$2y$10$tuvwxyz1234abcd5678efgh90ijklmnopqrstu', 'mia1010@example.com', 14, 0, '2024-01-15 20:29:10'),
+('noah1111', '$2y$10$uvwxyz1234abcd5678efgh90ijklmnopqrstuv', 'noah1111@example.com', 7, 0, '2024-02-20 01:40:11'),
+('olivia1212', '$2y$10$vwxyz1234abcd5678efgh90ijklmnopqrstuvw', 'olivia1212@example.com', 10, 0, '2024-03-25 06:51:12'),
+('peter1313', '$2y$10$wxyz1234abcd5678efgh90ijklmnopqrstuvwx', 'peter1313@example.com', 5, 0, '2024-04-30 12:02:13'),
+('quinn1414', '$2y$10$xyz1234abcd5678efgh90ijklmnopqrstuvwxy', 'quinn1414@example.com', 8, 0, '2024-05-05 17:13:14'),
+('rachel1515', '$2y$10$yz1234abcd5678efgh90ijklmnopqrstuvwxyz', 'rachel1515@example.com', 13, 0, '2024-06-10 22:24:15'),
+('sam1616', '$2y$10$z1234abcd5678efgh90ijklmnopqrstuvwxyz1', 'sam1616@example.com', 6, 0, '2024-07-15 03:35:16'),
+('tina1717', '$2y$10$1234abcd5678efgh90ijklmnopqrstuvwxyz12', 'tina1717@example.com', 9, 0, '2024-08-20 08:46:17'),
+('uma1818', '$2y$10$234abcd5678efgh90ijklmnopqrstuvwxyz123', 'uma1818@example.com', 4, 0, '2024-09-25 13:57:18'),
+('vince1919', '$2y$10$34abcd5678efgh90ijklmnopqrstuvwxyz1234', 'vince1919@example.com', 11, 0, '2024-10-30 19:08:19'),
+('willa2020', '$2y$10$4abcd5678efgh90ijklmnopqrstuvwxyz12345', 'willa2020@example.com', 16, 0, '2024-11-05 00:19:20'),
+('xander2121', '$2y$10$abcd5678efgh90ijklmnopqrstuvwxyz123456', 'xander2121@example.com', 3, 0, '2024-12-10 05:30:21'),
+('yara2222', '$2y$10$bcd5678efgh90ijklmnopqrstuvwxyz1234567', 'yara2222@example.com', 7, 0, '2025-01-15 10:41:22'),
+('zack2323', '$2y$10$cd5678efgh90ijklmnopqrstuvwxyz12345678', 'zack2323@example.com', 12, 0, '2025-02-20 15:52:23'),
+('amy2424', '$2y$10$d5678efgh90ijklmnopqrstuvwxyz123456789', 'amy2424@example.com', 5, 0, '2025-03-25 21:03:24'),
+('ben2525', '$2y$10$5678efgh90ijklmnopqrstuvwxyz1234567890', 'ben2525@example.com', 8, 0, '2025-04-30 02:14:25'),
+('cara2626', '$2y$10$678efgh90ijklmnopqrstuvwxyz12345678901', 'cara2626@example.com', 10, 0, '2025-05-05 07:25:26'),
+('drew2727', '$2y$10$78efgh90ijklmnopqrstuvwxyz123456789012', 'drew2727@example.com', 6, 0, '2025-06-10 12:36:27'),
+('ella2828', '$2y$10$8efgh90ijklmnopqrstuvwxyz1234567890123', 'ella2828@example.com', 9, 0, '2025-07-15 17:47:28'),
+('finn2929', '$2y$10$efgh90ijklmnopqrstuvwxyz12345678901234', 'finn2929@example.com', 14, 0, '2025-08-20 22:58:29'),
+('gina3030', '$2y$10$fgh90ijklmnopqrstuvwxyz123456789012345', 'gina3030@example.com', 7, 0, '2025-09-25 04:09:30'),
+('hugo3131', '$2y$10$gh90ijklmnopqrstuvwxyz1234567890123456', 'hugo3131@example.com', 11, 0, '2025-10-30 09:20:31'),
+('isla3232', '$2y$10$h90ijklmnopqrstuvwxyz12345678901234567', 'isla3232@example.com', 4, 0, '2025-11-05 14:31:32'),
+('jake3333', '$2y$10$90ijklmnopqrstuvwxyz123456789012345678', 'jake3333@example.com', 8, 0, '2025-12-10 19:42:33'),
+('kira3434', '$2y$10$0ijklmnopqrstuvwxyz1234567890123456789', 'kira3434@example.com', 13, 0, '2026-01-15 00:53:34'),
+('luke3535', '$2y$10$ijklmnopqrstuvwxyz12345678901234567890', 'luke3535@example.com', 5, 0, '2026-02-20 06:04:35'),
+('maya3636', '$2y$10$jklmnopqrstuvwxyz123456789012345678901', 'maya3636@example.com', 9, 0, '2026-03-25 11:15:36'),
+('nora3737', '$2y$10$klmnopqrstuvwxyz1234567890123456789012', 'nora3737@example.com', 12, 0, '2026-04-30 16:26:37'),
+('admin', '$2y$10$z6SzX6dPpboTXqXr4/J/auZB/E8psUsCVNj.eiS.Vf1n47IYKuFjS', 'admin@admin.admin', 20, 1, '2025-03-13 09:52:39'),
+('amdin', '$2y$10$HfdIqraepJdSUL5SQe7pvORFjdWXhH6fjS3jdDyghejQYT8CJD2FO', 'amdin@amdin.com', 0, 0, '2025-03-20 12:15:02'),
+('Sango2', '$2y$10$hJG922vPLNDXLsatmNWTVeidrB16hLZ80PUCh1sLpP0S965sPAgxa', 'sango@sango.cas', 0, 0, '2025-03-24 10:43:51');
+
+-- Insert sample data into MatchLogs
+INSERT INTO MatchLogs (PlayerID, Kills, MatchDuration, Win)
+VALUES
+(2, 999, 33, 1),
+(4, 15, 18, 1),
+(5, 6, 22, 0),
+(6, 10, 25, 1),
+(7, 7, 19, 0),
+(8, 14, 17, 1),
+(9, 9, 21, 0),
+(10, 11, 16, 1),
+(11, 5, 23, 0),
+(12, 13, 14, 1),
+(13, 4, 24, 0),
+(14, 16, 13, 1),
+(15, 3, 26, 0),
+(16, 17, 12, 1),
+(17, 2, 27, 0),
+(18, 18, 11, 1),
+(19, 1, 28, 0),
+(20, 19, 10, 1),
+(21, 0, 29, 0),
+(22, 20, 9, 1),
+(23, 1, 30, 0),
+(24, 21, 8, 1),
+(25, 2, 31, 0),
+(26, 22, 7, 1),
+(27, 3, 32, 0),
+(28, 23, 6, 1),
+(29, 4, 33, 0),
+(30, 24, 5, 1),
+(31, 5, 34, 0),
+(32, 25, 4, 1),
+(33, 6, 35, 0),
+(34, 26, 3, 1),
+(35, 7, 36, 0),
+(36, 27, 2, 1),
+(37, 8, 37, 0),
+(38, 28, 1, 1),
+(39, 9, 38, 0),
+(40, 29, 2, 1),
+(41, 10, 39, 0),
+(42, 30, 3, 1),
+(4, 31, 4, 1),
+(5, 12, 41, 0),
+(6, 32, 5, 1),
+(7, 13, 42, 0),
+(8, 33, 6, 1),
+(9, 14, 43, 0),
+(10, 34, 7, 1),
+(11, 15, 44, 0);

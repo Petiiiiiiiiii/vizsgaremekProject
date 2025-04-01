@@ -16,7 +16,7 @@ public class OpenChest : MonoBehaviour, IInteractable
     {
         if ((player != null))
         {
-            Debug.Log("ki lett nyitva");
+            this.GetComponent<Animator>().Play("map1-bossChest");
             Destroy(this.GetComponent<OpenChest>());
         }
         else Debug.Log("Nincs meg a player");

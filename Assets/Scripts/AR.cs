@@ -56,7 +56,11 @@ public class AR : Weapon
 
         if (PlayerPrefs.GetString("dmg_boost") == "unlocked") damage *= 1.2f;
         if (PlayerPrefs.GetString("headshot_boost") == "unlocked") headshotDamage *= 1.2f;
-        if (PlayerPrefs.GetString("mag_boost") == "unlocked") maxMag = 35;
+        if (PlayerPrefs.GetString("mag_boost") == "unlocked") 
+        {
+            maxMag = 35;
+            currentMag = 35;
+        } 
         if (PlayerPrefs.GetString("firerate_boost") == "unlocked") fireSpeed *= 1.2f;
     }
 
