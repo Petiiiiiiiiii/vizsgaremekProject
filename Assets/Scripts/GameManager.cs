@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     private GameObject[] allObjects;
     [SerializeField] private bool isBossDead;
     public GameObject bossRoom;
+    public bool hasKey;
 
     int refreshRate = 60;
 
@@ -18,6 +19,7 @@ public class GameManager : MonoBehaviour
 
         allObjects = FindObjectsOfType<GameObject>();
         isBossDead = false;
+        hasKey = false;
 
         switch (PlayerPrefs.GetInt("refreshRate"))
         {
