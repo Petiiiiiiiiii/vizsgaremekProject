@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     int refreshRate = 60;
 
+    public int kills = 0;
+
     private IEnumerator Start()
     {
         yield return null;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class HealthSystem : MonoBehaviour
@@ -65,7 +66,8 @@ public class HealthSystem : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Debug.Log("meghalt a player, match feltoltes");
+            GameObject.Find("GameManager").GetComponent<GameTimer>().StopTimer();
+            StartCoroutine(SaveMatchlog());
             this.gameObject.SetActive(false);
             GameObject.Find("PlayerUI").SetActive(false);
             deathPanel.SetActive(true);
@@ -77,5 +79,31 @@ public class HealthSystem : MonoBehaviour
     public void Heal(float heal) 
     {
         currentHealth += heal;
+    }
+
+    private class matchStats
+    {
+        public int playerId;
+        public int kills;
+        public int matchDuration;
+        public bool win;
+    }
+
+    IEnumerator SaveMatchlog()
+    {
+        matchStats thisMatch = new();
+        thisMatch.playerId = PlayerPrefs.GetInt("playerID");
+        thisMatch.kills = GameObject.Find("GameManager").GetComponent<GameManager>().kills;
+        thisMatch.matchDuration = (int)GameObject.Find("GameManager").GetComponent<GameTimer>().elapsedTime;
+        thisMatch.win = false;
+
+        using UnityWebRequest www = UnityWebRequest.Post("http://localhost:7000/api/MatchLogs", JsonUtility.ToJson(thisMatch), "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.result + " " + www.responseCode + " " + www.downloadHandler.text);
+        }
     }
 }

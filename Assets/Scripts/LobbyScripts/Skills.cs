@@ -1,8 +1,12 @@
+using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Skills : MonoBehaviour
 {
@@ -60,8 +64,8 @@ public class Skills : MonoBehaviour
                     checkmarks[1].SetActive(true);
                     break;
                 case "locked":
-                    btns[0].gameObject.GetComponent<Button>().enabled = true;
-                    checkmarks[0].SetActive(false);
+                    btns[1].gameObject.GetComponent<Button>().enabled = true;
+                    checkmarks[1].SetActive(false);
                     break;
                 default:
                     break;
@@ -152,6 +156,7 @@ public class Skills : MonoBehaviour
             PlayerPrefs.SetString("dmg_boost", "unlocked");
             btns[0].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[0].SetActive(true);
+            StartCoroutine(SkillUnlock(0));
         }
         else StartCoroutine(ErrorPoup());
     }
@@ -163,6 +168,7 @@ public class Skills : MonoBehaviour
             PlayerPrefs.SetString("hp_boost", "unlocked");
             btns[1].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[1].SetActive(true);
+            StartCoroutine(SkillUnlock(1));
         }
         else StartCoroutine(ErrorPoup());
     }
@@ -174,6 +180,7 @@ public class Skills : MonoBehaviour
             PlayerPrefs.SetString("firerate_boost", "unlocked");
             btns[2].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[2].SetActive(true);
+            StartCoroutine(SkillUnlock(2));
         }
         else StartCoroutine(ErrorPoup());
     }
@@ -185,6 +192,7 @@ public class Skills : MonoBehaviour
             PlayerPrefs.SetString("headshot_boost", "unlocked");
             btns[3].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[3].SetActive(true);
+            StartCoroutine(SkillUnlock(3));
         }
         else StartCoroutine(ErrorPoup());
     }
@@ -196,6 +204,7 @@ public class Skills : MonoBehaviour
             PlayerPrefs.SetString("movement_boost", "unlocked");
             btns[4].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[4].SetActive(true);
+            StartCoroutine(SkillUnlock(4));
         }
         else StartCoroutine(ErrorPoup());
     }
@@ -207,6 +216,7 @@ public class Skills : MonoBehaviour
             PlayerPrefs.SetString("mag_boost", "unlocked");
             btns[5].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[5].SetActive(true);
+            StartCoroutine(SkillUnlock(5));
         }
         else StartCoroutine(ErrorPoup());
     }
@@ -219,6 +229,7 @@ public class Skills : MonoBehaviour
             PlayerPrefs.SetString("AR_weapon","unlocked");
             btns[6].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[6].SetActive(true);
+            StartCoroutine(SkillUnlock(6));
         }
         else StartCoroutine(ErrorPoup());
     }
@@ -228,5 +239,27 @@ public class Skills : MonoBehaviour
         errorPanel.SetActive(true);
         yield return new WaitForSeconds(2f);
         errorPanel.SetActive(false);
+    }
+
+    private class skillObject
+    {
+        public int playerId;
+        public int skill;
+    }
+
+    IEnumerator SkillUnlock(int skillID)
+    {
+        skillObject uj = new();
+        uj.skill = skillID;
+        uj.playerId = PlayerPrefs.GetInt("playerID");
+
+        using UnityWebRequest www = UnityWebRequest.Post("http://localhost:7000/api/UnlockedSkills", JsonUtility.ToJson(uj), "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.result + " " + www.responseCode + " " + www.downloadHandler.text );
+        }
     }
 }

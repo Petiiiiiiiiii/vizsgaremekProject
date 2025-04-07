@@ -1,6 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -20,45 +23,43 @@ public class RegisterController : MonoBehaviour
         emailInput = GameObject.Find("emailINPUT").GetComponent<TMP_InputField>();
         regBTN = GameObject.Find("RegBTN").GetComponent<Button>();
     }
+    private class user 
+    {
+        public string username;
+        public string passwordHash;
+        public string email;
+    }
     public void CallRegister()
     {
-        StartCoroutine(Upload());
+        StartCoroutine(Register());
         regBTN.interactable = false;
     }
-    IEnumerator Upload()
+    IEnumerator Register()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("username", nameInput.text);
-        form.AddField("pass", passInput.text);
-        form.AddField("email", emailInput.text);
+        user user = new();
 
-        using UnityWebRequest www = UnityWebRequest.Post("http://localhost/dungeonmaster/register.php", form);
+        user.username = nameInput.text;
+        user.passwordHash = passInput.text;
+        user.email = emailInput.text;
+
+        using UnityWebRequest www = UnityWebRequest.Post("http://localhost:7000/api/Players", JsonUtility.ToJson(user), "application/json");
         yield return www.SendWebRequest();
+
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.LogError("Hálózati hiba: " + www.error);
+            Debug.LogError("Hálózati hiba: " + www.error + "\nResult: " + www.result);
         }
         else
         {
-            string response = www.downloadHandler.text;
-
-            switch (response)
+            switch (www.responseCode)
             {
-                case "0":
+                case 201:
                     StartCoroutine(Warning("Successful registration!",true));
-                    break;
-                case "3: Name already exists":
-                    StartCoroutine(Warning("Username already exists!",false));
-                    regBTN.interactable = true;
-                    break;
-                case "5: Email already exists":
-                    StartCoroutine(Warning("Email already exists!",false));
-                    regBTN.interactable = true;
                     break;
                 default:
                     StartCoroutine(Warning("Something went wrong, try again later!", false));
-                    Debug.Log(response);
+                    Debug.Log("status code: " + www.responseCode);
                     regBTN.interactable = true;
                     break;
             }

@@ -18,7 +18,6 @@ public class LobbyHandler : MonoBehaviour
     [SerializeField] Canvas PlayUI;
     [SerializeField] GameObject wrongWeaponType;
 
-    private string username;
     public TextMeshProUGUI levelAndName;
     public TextMeshProUGUI playmenuLevel;
     public TextMeshProUGUI playmenuName;
@@ -34,17 +33,19 @@ public class LobbyHandler : MonoBehaviour
     private List<string> weapons = new List<string> {"AR","SMG"};
     private int currentIndex = 0;
 
-
     private void Start()
     {
-        username = PlayerPrefs.GetString("Username");
+        levelAndName.text = $"Level {PlayerPrefs.GetInt("playerLevel")} - {PlayerPrefs.GetString("Username")}";
+        playmenuLevel.text = PlayerPrefs.GetInt("playerLevel").ToString();
+        skillsmenuLevel.text = PlayerPrefs.GetInt("playerLevel").ToString();
+        playmenuName.text = PlayerPrefs.GetString("Username");
+        skillsmenuName.text = PlayerPrefs.GetString("Username");
+
         difficulty.onValueChanged.AddListener(OnDropdownValueChanged);
         UpdateDisplay();
         leftButton.onClick.AddListener(OnLeftButtonClicked);
         rightButton.onClick.AddListener(OnRightButtonClicked);
-        StartCoroutine(Upload());
     }
-
     void OnLeftButtonClicked()
     {
         currentIndex--;
@@ -164,39 +165,6 @@ public class LobbyHandler : MonoBehaviour
             yield return new WaitForSeconds(1f);
             LobbyUI.gameObject.SetActive(!value);
         }
-
-    }
-    IEnumerator Upload()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("username", username);
-
-        using UnityWebRequest www = UnityWebRequest.Post("http://localhost/dungeonmaster/lobby_start_query.php", form);
-        yield return www.SendWebRequest();
-
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            //Debug.LogError("Hálózati hiba: " + www.error);
-        }
-        else
-        {
-            string response = www.downloadHandler.text;
-            string level = response.Split(';')[0];
-            PlayerPrefs.SetInt("playerLevel",Convert.ToInt32(level));
-
-            levelAndName.text = $"Level {level} - {username}";
-
-            playmenuLevel.text = level;
-            playmenuName.text = username;
-            skillsmenuLevel.text = level;
-            skillsmenuName.text = username;
-
-            PlayerPrefs.SetString("Permission", response.Split(';')[1]);
-        }
-    }
-
-    public void BuySkill() 
-    {
 
     }
 

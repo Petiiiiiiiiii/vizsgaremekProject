@@ -15,6 +15,7 @@ AR_weapon (string) -> "locked" vagy "unlocked"
 Player adatok
 --------------------------------------------------------
 Permission (string) -> "1" vagy "0"
+playerID (int) -> adatbázisban lévő ID-vel megegyezik
 playerLevel (int) -> 1 és 100 között
 Username (string) -> játékos neve
 playerXP (int) -> játékos össz xp-je
@@ -27,4 +28,17 @@ displayMode (string) -> FullScreenMode-nak dolgai
 refreshRate (int) -> {60,120,144,165}
 volumeLevel (float) -> 0 és 1 között
 sensitivity (float) -> 0 és 5 között
+--------------------------------------------------------
+
+Unlocked Skills
+--------------------------------------------------------
+Adatbázisban a skill (int)
+
+0 -> dmg_boost
+1 -> hp_boost
+2 -> firerate_boost
+3 -> headshot_boost
+4 -> movement_boost
+5 -> mag_boost
+6 -> AR_weapon
 --------------------------------------------------------

@@ -45,6 +45,7 @@ public class Target : MonoBehaviour
         Debug.Log("xp: " + PlayerPrefs.GetInt("playerXP") + " xp");
         Destroy(gameObject);
         FindObjectOfType<ingameUI>().UpdateEnemyCount();
+        GameObject.Find("GameManager").GetComponent<GameManager>().kills += 1;
     }
 
     IEnumerator enemyDead() 

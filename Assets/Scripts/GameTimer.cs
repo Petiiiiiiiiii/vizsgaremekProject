@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameTimer : MonoBehaviour
 {
     public TextMeshProUGUI timerText;
-    private float elapsedTime = 0f;
+    public float elapsedTime = 0f;
     private bool isTimerRunning = false;
 
     void Update()
