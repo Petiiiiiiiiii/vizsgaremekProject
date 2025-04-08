@@ -1,0 +1,41 @@
+-- Create database
+
+--CREATE DATABASE dungeonmaster;
+
+--USE dungeonmaster;
+
+-- Players table
+CREATE TABLE players (
+    PlayerID INT IDENTITY(1,1) PRIMARY KEY,
+    Username NVARCHAR(50) NOT NULL UNIQUE,
+    PasswordHash NVARCHAR(255) NOT NULL,
+    Email NVARCHAR(100) NOT NULL UNIQUE,
+    Level INT NOT NULL DEFAULT 0,
+    SP INT NOT NULL DEFAULT 0,
+    Permission INT NOT NULL DEFAULT 0,
+    RegDate DATETIME NOT NULL DEFAULT GETDATE()
+);
+GO
+
+-- Matchlogs table
+CREATE TABLE matchlogs (
+    MatchID INT IDENTITY(1,1) PRIMARY KEY,
+    PlayerID INT NOT NULL,
+    Kills INT DEFAULT 0,
+    MatchDuration INT NOT NULL,
+    Win BIT NOT NULL,
+    CONSTRAINT FK_matchlogs_players FOREIGN KEY (PlayerID) 
+        REFERENCES players(PlayerID) ON DELETE CASCADE
+);
+GO
+
+-- Unlockedskills table
+CREATE TABLE unlockedskills (
+    UnlockedSkillId INT IDENTITY(1,1) PRIMARY KEY,
+    PlayerID INT NOT NULL,
+    Skill INT DEFAULT 0,
+    UnlockDate DATETIME NOT NULL DEFAULT GETDATE(),
+    CONSTRAINT FK_unlockedskills_players FOREIGN KEY (PlayerID) 
+        REFERENCES players(PlayerID) ON DELETE CASCADE
+);
+GO
