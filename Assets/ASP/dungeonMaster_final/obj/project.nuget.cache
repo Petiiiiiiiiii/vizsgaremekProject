@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "YssHDk3IUGHAqXLIpdVVqgN4KR+ugZqhsVmg/p4qKTC2b3Zcauwc3dYl+RglrB4H1SrsopfabEtg85fKATpTVA==",
+  "dgSpecHash": "jgmWTsPJd2QCW+WGI0HnOXCVRPJT8Aoi28aK2ivPlW4ta80j4D/CpFl8JJGYbmexoHDnpGPjXUgO71x7iMOUeg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\dungeonMaster_final.csproj",
+  "projectFilePath": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\dungeonMaster_final.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\C20OSzlikT\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\C20OSzlikT\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

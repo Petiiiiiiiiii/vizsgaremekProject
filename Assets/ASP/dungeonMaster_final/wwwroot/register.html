@@ -56,6 +56,12 @@
         #title {
             justify-content: center;
         }
+
+        #error-message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -67,6 +73,7 @@
 
     <div class="container">
         <h2 class="text-center">Register</h2>
+        <div id="error-message" class="alert alert-danger d-none mb-3"></div>
         <form id="registerForm">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
@@ -90,21 +97,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const errorMessage = document.getElementById('error-message');
+
             async function sha256Hash(password) {
-                const msgBuffer = new TextEncoder().encode(password);
-                const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+                const encoder = new TextEncoder();
+                const data = encoder.encode(password);
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
                 const hashArray = Array.from(new Uint8Array(hashBuffer));
                 return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
             }
 
             document.getElementById('registerForm').addEventListener('submit', async (e) => {
                 e.preventDefault();
+                errorMessage.classList.add('d-none');
 
+                const username = document.getElementById('username').value;
+                const email = document.getElementById('email').value;
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirm_password').value;
 
                 if (password !== confirmPassword) {
-                    alert('Passwords do not match!');
+                    errorMessage.textContent = 'A jelszavak nem egyeznek!';
+                    errorMessage.classList.remove('d-none');
                     return;
                 }
 
@@ -113,25 +127,51 @@
 
                     const response = await fetch('http://localhost:7000/api/Players', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            Username: document.getElementById('username').value,
-                            Email: document.getElementById('email').value,
+                            Username: username,
+                            Email: email,
                             PasswordHash: hashedPassword
                         })
                     });
 
-                    if (!response.ok) throw new Error(await response.text());
+                    let result;
+                    try {
+                        // Próbáljuk JSON-ként értelmezni a választ
+                        result = await response.json();
+                    } catch {
+                        // Ha nem sikerül, szövegként olvassuk
+                        result = await response.text();
+                    }
 
-                    alert('Registration successful!');
+                    if (!response.ok) {
+                        // Hibakódok kezelése
+                        if (result.code === 3) {
+                            errorMessage.textContent = 'Ez a felhasználónév már foglalt!';
+                        } else if (result.code === 5) {
+                            errorMessage.textContent = 'Ez az email cím már regisztrálva van!';
+                        } else if (typeof result === 'string' && result.includes("2627")) {
+                            // SQL hibák kezelése
+                            errorMessage.textContent = result.includes("Username")
+                                ? 'Ez a felhasználónév már foglalt!'
+                                : 'Ez az email cím már regisztrálva van!';
+                        } else {
+                            errorMessage.textContent = `Regisztrációs hiba: ${result.message || result}`;
+                        }
+
+                        errorMessage.classList.remove('d-none');
+                        return;
+                    }
+
+                    alert('Sikeres regisztráció!');
                     window.location.href = 'login.html';
                 } catch (error) {
-                    console.error('Error:', error);
-                    alert(`Error: ${error.message}`);
+                    errorMessage.textContent = 'Hiba történt a kapcsolat során';
+                    errorMessage.classList.remove('d-none');
+                    console.error('Hiba részletei:', error);
                 }
             });
+
         });
     </script>
 

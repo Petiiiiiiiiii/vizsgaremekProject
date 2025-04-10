@@ -9,6 +9,7 @@ using dungeonMaster_final.Models;
 using System.Text;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using Microsoft.Data.SqlClient;
 
 namespace dungeonMaster_final.Controllers
 {
@@ -82,13 +83,55 @@ namespace dungeonMaster_final.Controllers
 
         // POST: api/Players
         [HttpPost]
-        public async Task<ActionResult<Player>> PostPlayer(Player player)
+        public async Task<ActionResult<ApiResponse>> PostPlayer(PlayerRegistrationDto registrationDto)
         {
-            player.PasswordHash = HashPassword(player.PasswordHash);
-            _context.Players.Add(player);
-            await _context.SaveChangesAsync();
+            try
+            {
+                // Ellenőrzések
+                if (await _context.Players.AnyAsync(p => p.Username == registrationDto.Username))
+                    return Conflict(new ApiResponse { Code = 3, Message = "Username already exists" });
 
-            return CreatedAtAction("GetPlayer", new { id = player.PlayerId }, player);
+                if (await _context.Players.AnyAsync(p => p.Email == registrationDto.Email))
+                    return Conflict(new ApiResponse { Code = 5, Message = "Email already exists" });
+
+                // Játékos létrehozása
+                var player = new Player
+                {
+                    Username = registrationDto.Username,
+                    Email = registrationDto.Email,
+                    PasswordHash = HashPassword(registrationDto.Password)
+                };
+
+                _context.Players.Add(player);
+                await _context.SaveChangesAsync();
+
+                return Ok(new ApiResponse { Success = true });
+            }
+            catch (DbUpdateException ex)
+            {
+                // Adatbázis szintű egyediségi hiba
+                var sqlEx = ex.InnerException as SqlException;
+                if (sqlEx != null && (sqlEx.Number == 2627 || sqlEx.Number == 2601))
+                {
+                    var errorMessage = sqlEx.Message.Contains("Username")
+                        ? new ApiResponse { Code = 3, Message = "Username already exists" }
+                        : new ApiResponse { Code = 5, Message = "Email already exists" };
+
+                    return Conflict(errorMessage);
+                }
+                return StatusCode(500, new ApiResponse { Message = "Database error" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponse { Message = "Internal server error" });
+            }
+        }
+
+        public class ApiResponse
+        {
+            public bool Success { get; set; }
+            public int Code { get; set; }
+            public string Message { get; set; }
         }
 
         // DELETE: api/Players/5

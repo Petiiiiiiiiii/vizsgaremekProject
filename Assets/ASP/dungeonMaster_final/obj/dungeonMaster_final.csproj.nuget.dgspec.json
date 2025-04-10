@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\dungeonMaster_final.csproj": {}
+    "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\dungeonMaster_final.csproj": {}
   },
   "projects": {
-    "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\dungeonMaster_final.csproj": {
+    "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\dungeonMaster_final.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\dungeonMaster_final.csproj",
+        "projectUniqueName": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\dungeonMaster_final.csproj",
         "projectName": "dungeonMaster_final",
-        "projectPath": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\dungeonMaster_final.csproj",
+        "projectPath": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\dungeonMaster_final.csproj",
         "packagesPath": "C:\\Users\\C20OSzlikT\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\obj\\",
+        "outputPath": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\C20OSzlikT\\AppData\\Roaming\\NuGet\\NuGet.Config",

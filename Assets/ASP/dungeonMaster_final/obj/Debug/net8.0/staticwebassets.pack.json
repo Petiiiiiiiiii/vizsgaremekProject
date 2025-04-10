@@ -1,19 +1,111 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\wwwroot\\index.html",
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\delete_player.php",
+      "PackagePath": "staticwebassets\\admin_panel\\delete_player.php"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\delete_player.php.meta",
+      "PackagePath": "staticwebassets\\admin_panel\\delete_player.php.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\index.php",
+      "PackagePath": "staticwebassets\\admin_panel\\index.php"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\index.php.meta",
+      "PackagePath": "staticwebassets\\admin_panel\\index.php.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\mainPanel.php",
+      "PackagePath": "staticwebassets\\admin_panel\\mainPanel.php"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\mainPanel.php.meta",
+      "PackagePath": "staticwebassets\\admin_panel\\mainPanel.php.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\update_player.php",
+      "PackagePath": "staticwebassets\\admin_panel\\update_player.php"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\update_player.php.meta",
+      "PackagePath": "staticwebassets\\admin_panel\\update_player.php.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\users.php",
+      "PackagePath": "staticwebassets\\admin_panel\\users.php"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\admin_panel\\users.php.meta",
+      "PackagePath": "staticwebassets\\admin_panel\\users.php.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\fonts\\dungeon.otf",
+      "PackagePath": "staticwebassets\\fonts\\dungeon.otf"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\fonts\\dungeon.otf.meta",
+      "PackagePath": "staticwebassets\\fonts\\dungeon.otf.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\fonts\\dungeonback.ttf",
+      "PackagePath": "staticwebassets\\fonts\\dungeonback.ttf"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\fonts\\dungeonback.ttf.meta",
+      "PackagePath": "staticwebassets\\fonts\\dungeonback.ttf.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel1.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel1.jpg"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel1.jpg.meta",
+      "PackagePath": "staticwebassets\\images\\carousel1.jpg.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel2.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel2.jpg.meta",
+      "PackagePath": "staticwebassets\\images\\carousel2.jpg.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel3.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel3.jpg"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel3.jpg.meta",
+      "PackagePath": "staticwebassets\\images\\carousel3.jpg.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel4.jpg",
+      "PackagePath": "staticwebassets\\images\\carousel4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\images\\carousel4.jpg.meta",
+      "PackagePath": "staticwebassets\\images\\carousel4.jpg.meta"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },
     {
-      "Id": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\wwwroot\\loginweb.html",
-      "PackagePath": "staticwebassets\\loginweb.html"
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\js\\auth.js",
+      "PackagePath": "staticwebassets\\js\\auth.js"
     },
     {
-      "Id": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\wwwroot\\registerweb.html",
-      "PackagePath": "staticwebassets\\registerweb.html"
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\login.html",
+      "PackagePath": "staticwebassets\\login.html"
     },
     {
-      "Id": "C:\\Users\\C20OSzlikT\\Desktop\\drive-download-20250408T072536Z-001\\dungeonMaster_final\\wwwroot\\scoreboard.html",
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\register.html",
+      "PackagePath": "staticwebassets\\register.html"
+    },
+    {
+      "Id": "C:\\Users\\C20OSzlikT\\Documents\\GitHub\\vizsgaremekProject\\Assets\\ASP\\dungeonMaster_final\\wwwroot\\scoreboard.html",
       "PackagePath": "staticwebassets\\scoreboard.html"
     },
     {
