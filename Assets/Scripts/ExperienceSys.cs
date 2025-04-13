@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class ExperienceSys : MonoBehaviour
 {
-    public ParticleSystem levelUP;
     public GameObject levelUPtext;
     private int xp;
     private void Start()
@@ -19,18 +20,16 @@ public class ExperienceSys : MonoBehaviour
         int level = xp / 500;
         if((xp / 500) > PlayerPrefs.GetInt("playerLevel")) 
         {
-            Debug.Log($"szint lépés : {level}-as szint | {xp} xp |xp/500 = {xp / 500} ");
-            StartCoroutine(levelUPparticles());
+            StartCoroutine(levelUP());
+            StartCoroutine(levelSave(level));
         }
         PlayerPrefs.SetInt("playerLevel", level);
     }
-    IEnumerator levelUPparticles() 
+    IEnumerator levelUP() 
     {
-        levelUP.Play();
         levelUPtext.SetActive(true);
         yield return new WaitForSeconds(3f);
         levelUPtext.SetActive(false);
-        levelUP.Stop();
     }
     public void bossKill() 
     {
@@ -39,10 +38,47 @@ public class ExperienceSys : MonoBehaviour
         int level = xp / 500;
         if ((xp / 500) > PlayerPrefs.GetInt("playerLevel"))
         {
-            Debug.Log($"szint lépés : {level}-as szint | {xp} xp |xp/500 = {xp / 500} ");
-            StartCoroutine(levelUPparticles());
+            StartCoroutine(levelUP());
+            StartCoroutine(levelSave(level));
         }
         PlayerPrefs.SetInt("playerLevel", level);
+    }
+
+    private class player
+    {
+        public int playerId;
+        public string username;
+        public string passwordHash;
+        public string email;
+        public int level;
+        public int sp;
+        public int permission;
+        public string regDate;
+    }
+
+    IEnumerator levelSave(int level)
+    {
+        player Player = new();
+        Player.playerId = PlayerPrefs.GetInt("playerID");
+        Player.username = PlayerPrefs.GetString("Username");
+        Player.passwordHash = PlayerPrefs.GetString("passwordHash");
+        Player.email = PlayerPrefs.GetString("playerEmail");
+        Player.level = level;
+        Player.sp = PlayerPrefs.GetInt("SP");
+        Player.permission = PlayerPrefs.GetInt("Permission");
+        DateTime.TryParse(PlayerPrefs.GetString("regDate"), out DateTime regDate);
+        Player.regDate = regDate.ToString("o");
+
+        using UnityWebRequest www = UnityWebRequest.Put($"http://localhost:7000/api/Players/{Player.playerId}", JsonUtility.ToJson(Player));
+
+        www.SetRequestHeader("Content-Type", "application/json");
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.result + " " + www.responseCode + " " + www.downloadHandler.text);
+        }
+
     }
 
 }

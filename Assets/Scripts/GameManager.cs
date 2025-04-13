@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour
 
         if (isBossDead)
         {
-            //Debug.Log("boss meghalt");
             bossRoom.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
@@ -63,9 +62,4 @@ public class GameManager : MonoBehaviour
         else isBossDead = false;
 
     }
-    public void GameOver() 
-    {
-        SceneManager.LoadScene("Lobby");
-    }
-
 }

@@ -8,8 +8,6 @@ public class Generator : MonoBehaviour
     public int height = 10; //"grid height"
     public GameObject wallPrefab;
     public GameObject floorPrefab;
-    public GameObject healPrefab;  
-    public GameObject ammoboxPrefab;
     public int numberOfRooms = 5;
     public int maxLootPerRoom = 5;
 
@@ -52,8 +50,6 @@ public class Generator : MonoBehaviour
                     dungeonMap[x, y] = 0;
                 }
             }
-
-            SpawnLootInRoom(xPos, yPos, roomWidth, roomHeight);
         }
 
         for (int i = 0; i < roomCenters.Count - 1; i++)
@@ -66,21 +62,6 @@ public class Generator : MonoBehaviour
         DrawDungeon();
     }
 
-    void SpawnLootInRoom(int xPos, int yPos, int roomWidth, int roomHeight)
-    {
-        int numberOfLoot = Random.Range(1, maxLootPerRoom + 1);
-
-        for (int i = 0; i < numberOfLoot; i++)
-        {
-            int x = Random.Range(xPos + 1, xPos + roomWidth - 1);
-            int y = Random.Range(yPos + 1, yPos + roomHeight - 1);
-
-            Vector3 position = new Vector3(x * 2, 0, y * 2);
-            int lootType = Random.Range(1,3);
-            if (lootType == 1) Instantiate(healPrefab, position, Quaternion.identity);
-            else Instantiate(ammoboxPrefab, position, Quaternion.identity);
-        }
-    }
 
     // szobakat osszekoto folyoso
     void CreateTunnel(Vector2 roomA, Vector2 roomB)

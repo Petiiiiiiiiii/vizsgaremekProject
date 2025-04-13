@@ -25,13 +25,13 @@ public class LobbyHandler : MonoBehaviour
     public TextMeshProUGUI skillsmenuLevel;
 
     public TMP_Dropdown difficulty;
-    private string selectedDifficulty = "Medium";
+    public string selectedDifficulty = "Easy";
 
     public TextMeshProUGUI displayText;
     public UnityEngine.UI.Button leftButton;
     public UnityEngine.UI.Button rightButton;
     private List<string> weapons = new List<string> {"AR","SMG"};
-    private int currentIndex = 0;
+    private int currentIndex = 1;
 
     private void Start()
     {

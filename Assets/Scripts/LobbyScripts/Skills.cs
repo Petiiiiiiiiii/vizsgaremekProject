@@ -153,6 +153,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 5)
         {
             PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") - 5);
+            StartCoroutine(spSave());
             PlayerPrefs.SetString("dmg_boost", "unlocked");
             btns[0].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[0].SetActive(true);
@@ -165,6 +166,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 5)
         {
             PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") - 5);
+            StartCoroutine(spSave());
             PlayerPrefs.SetString("hp_boost", "unlocked");
             btns[1].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[1].SetActive(true);
@@ -177,6 +179,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 5)
         {
             PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") - 5);
+            StartCoroutine(spSave());
             PlayerPrefs.SetString("firerate_boost", "unlocked");
             btns[2].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[2].SetActive(true);
@@ -189,6 +192,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 5)
         {
             PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") - 5);
+            StartCoroutine(spSave());
             PlayerPrefs.SetString("headshot_boost", "unlocked");
             btns[3].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[3].SetActive(true);
@@ -201,6 +205,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 5)
         {
             PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") - 5);
+            StartCoroutine(spSave());
             PlayerPrefs.SetString("movement_boost", "unlocked");
             btns[4].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[4].SetActive(true);
@@ -213,6 +218,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 5)
         {
             PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") - 5);
+            StartCoroutine(spSave());
             PlayerPrefs.SetString("mag_boost", "unlocked");
             btns[5].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[5].SetActive(true);
@@ -226,6 +232,7 @@ public class Skills : MonoBehaviour
         if (availableSP >= 10)
         {
             PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") - 10);
+            StartCoroutine(spSave());
             PlayerPrefs.SetString("AR_weapon","unlocked");
             btns[6].gameObject.GetComponent<Button>().enabled = false;
             checkmarks[6].SetActive(true);
@@ -254,12 +261,48 @@ public class Skills : MonoBehaviour
         uj.playerId = PlayerPrefs.GetInt("playerID");
 
         using UnityWebRequest www = UnityWebRequest.Post("http://localhost:7000/api/UnlockedSkills", JsonUtility.ToJson(uj), "application/json");
-
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
         {
             Debug.Log(www.result + " " + www.responseCode + " " + www.downloadHandler.text );
         }
+    }
+
+    private class player 
+    {
+        public int playerId;
+        public string username;
+        public string passwordHash;
+        public string email;
+        public int level;
+        public int sp;
+        public int permission;
+        public string regDate;
+    }
+
+    IEnumerator spSave() 
+    {
+        player buyer = new();
+        buyer.playerId = PlayerPrefs.GetInt("playerID");
+        buyer.username = PlayerPrefs.GetString("Username");
+        buyer.passwordHash = PlayerPrefs.GetString("passwordHash");
+        buyer.email = PlayerPrefs.GetString("playerEmail");
+        buyer.level = PlayerPrefs.GetInt("playerLevel");
+        buyer.sp = PlayerPrefs.GetInt("SP");
+        buyer.permission = PlayerPrefs.GetInt("Permission");
+        DateTime.TryParse(PlayerPrefs.GetString("regDate"), out DateTime regDate);
+        buyer.regDate = regDate.ToString("o");
+
+        using UnityWebRequest www = UnityWebRequest.Put($"http://localhost:7000/api/Players/{buyer.playerId}", JsonUtility.ToJson(buyer));
+
+        www.SetRequestHeader("Content-Type", "application/json");
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.result + " " + www.responseCode + " " + www.downloadHandler.text);
+        }
+
     }
 }

@@ -1175,7 +1175,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Medium
+  m_text: Easy
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 4a7cc7bba84558c40a1dfee0a6c5992e, type: 2}
   m_sharedMaterial: {fileID: 1282294439418762816, guid: 4a7cc7bba84558c40a1dfee0a6c5992e, type: 2}
@@ -4991,7 +4991,7 @@ MonoBehaviour:
   m_Placeholder: {fileID: 0}
   m_ItemText: {fileID: 465090973}
   m_ItemImage: {fileID: 0}
-  m_Value: 1
+  m_Value: 0
   m_Options:
     m_Options:
     - m_Text: Easy
@@ -6258,6 +6258,7 @@ MonoBehaviour:
   skillsmenuName: {fileID: 1614093234}
   skillsmenuLevel: {fileID: 2094634338}
   difficulty: {fileID: 568688784}
+  selectedDifficulty: Easy
   displayText: {fileID: 559422106}
   leftButton: {fileID: 645656602}
   rightButton: {fileID: 204759344}

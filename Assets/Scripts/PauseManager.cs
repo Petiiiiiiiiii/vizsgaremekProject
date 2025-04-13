@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
@@ -52,10 +53,36 @@ public class PauseManager : MonoBehaviour
         if (GameObject.Find("G36C")) player.GetComponentInChildren<AR>().canShoot = true;
         else if (GameObject.Find("SMG")) player.GetComponentInChildren<SMG>().canShoot = true;
     }
-    public void BackToLobby() 
+    public void BackToLobby()
     {
         Time.timeScale = 1;
+        StartCoroutine(SaveMatchlog());
         SceneManager.LoadScene("Lobby");
-        Debug.Log("még el kell menteni");
+    }
+
+    private class matchStats
+    {
+        public int playerId;
+        public int kills;
+        public int matchDuration;
+        public bool win;
+    }
+
+    IEnumerator SaveMatchlog()
+    {
+        matchStats thisMatch = new();
+        thisMatch.playerId = PlayerPrefs.GetInt("playerID");
+        thisMatch.kills = GameObject.Find("GameManager").GetComponent<GameManager>().kills;
+        thisMatch.matchDuration = (int)GameObject.Find("GameManager").GetComponent<GameTimer>().elapsedTime;
+        thisMatch.win = false;
+
+        using UnityWebRequest www = UnityWebRequest.Post("http://localhost:7000/api/MatchLogs", JsonUtility.ToJson(thisMatch), "application/json");
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.result + " " + www.responseCode + " " + www.downloadHandler.text);
+        }
     }
 }

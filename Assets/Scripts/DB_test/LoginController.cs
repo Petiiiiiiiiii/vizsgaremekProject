@@ -62,6 +62,9 @@ public class LoginController : MonoBehaviour
                     PlayerPrefs.SetInt("Permission", player.permission);
                     PlayerPrefs.SetInt("SP", player.sp);
                     PlayerPrefs.SetInt("playerID", player.playerId);
+                    PlayerPrefs.SetString("playerEmail", player.email);
+                    PlayerPrefs.SetString("passwordHash", player.passwordHash);
+                    PlayerPrefs.SetString("regDate", player.regDate.ToString());
 
                     PlayerPrefs.SetString("dmg_boost", "locked");
                     PlayerPrefs.SetString("hp_boost", "locked");
