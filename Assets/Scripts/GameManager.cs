@@ -62,4 +62,9 @@ public class GameManager : MonoBehaviour
         else isBossDead = false;
 
     }
+
+    public void GameOver()
+    {
+        SceneManager.LoadScene("Lobby");
+    }
 }
