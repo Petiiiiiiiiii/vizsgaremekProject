@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class Target : MonoBehaviour
 {
@@ -13,6 +15,9 @@ public class Target : MonoBehaviour
     public Animator animator;
     public float dyingAnimation = 3.1f;
 
+    public Slider slider;
+    public TextMeshProUGUI hpText;
+
     CapsuleCollider[] colliders;
 
     private void Start()
@@ -20,11 +25,23 @@ public class Target : MonoBehaviour
         colliders = GetComponentsInChildren<CapsuleCollider>();
         playerGameobj = GameObject.Find("GameManager").GetComponent<GameManager>().player;
         player = GameObject.Find(playerGameobj).transform;
+
+        slider.value = currentHealth / maxHealth;
+        hpText.text = $"{currentHealth}/{maxHealth}";
     }
 
     public void TakeDamage(float amount)
     {
         currentHealth -= amount;
+
+        slider.value = currentHealth / maxHealth;
+        hpText.text = $"{currentHealth}/{maxHealth}";
+
+        if (currentHealth < 0) 
+        {
+            hpText.text = $"0/{maxHealth}";
+        }
+
         if (currentHealth <= 0f)
         {
             StartCoroutine(enemyDead());

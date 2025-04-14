@@ -9,6 +9,11 @@ public class ingameUI : MonoBehaviour
     private TextMeshProUGUI playerLevel;
     private TextMeshProUGUI playerName;
     public TextMeshProUGUI remainingEnemies;
+
+    public GameObject questPanel;
+    public TextMeshProUGUI firstObjective;
+    public TextMeshProUGUI secondObjective;
+
     void Start()
     {
         playerLevel = GameObject.Find("levelBG").GetComponentInChildren<TextMeshProUGUI>();
@@ -21,6 +26,20 @@ public class ingameUI : MonoBehaviour
     private void FixedUpdate()
     {
         playerLevel.text = PlayerPrefs.GetInt("playerLevel").ToString();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartCoroutine(showObjectives());
+        }
+
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().hasKey) 
+        {
+            secondObjective.fontStyle = FontStyles.Strikethrough;
+            secondObjective.color = Color.black;
+        }
     }
 
     public void UpdateEnemyCount()
@@ -40,9 +59,10 @@ public class ingameUI : MonoBehaviour
 
         remainingEnemies.text = "Enemies Left: " + enemyCount;
 
-        if (enemyCount == 0 && SceneManager.GetActiveScene().name == "Map-1") 
+        if (enemyCount == 0) 
         {
-            Debug.Log("nyert a player, match feltoltes");
+            firstObjective.fontStyle = FontStyles.Strikethrough;
+            firstObjective.color = Color.black;
         }
 
     }
@@ -54,6 +74,13 @@ public class ingameUI : MonoBehaviour
             UpdateEnemyCount();
             yield return new WaitForSeconds(1f);
         }
+    }
+
+    IEnumerator showObjectives()
+    {
+        questPanel.SetActive(true);
+        yield return new WaitForSeconds(3f);
+        questPanel.SetActive(false);
     }
 
 
