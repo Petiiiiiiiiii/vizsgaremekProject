@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class ExperienceSys : MonoBehaviour
 {
     public GameObject levelUPtext;
     private int xp;
+
+    public Slider xpSlider;
     private void Start()
     {
         xp = PlayerPrefs.GetInt("playerLevel") * 500;
@@ -15,6 +18,7 @@ public class ExperienceSys : MonoBehaviour
     }
     public void enemyKill() 
     {
+        xpSlider.value += 0.1f;
         PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 50);
         xp = PlayerPrefs.GetInt("playerXP");
         int level = xp / 500;
@@ -28,12 +32,14 @@ public class ExperienceSys : MonoBehaviour
     IEnumerator levelUP() 
     {
         levelUPtext.SetActive(true);
+        xpSlider.value = 0f;
         yield return new WaitForSeconds(3f);
         levelUPtext.SetActive(false);
     }
     public void bossKill() 
     {
-        PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 500);
+        xpSlider.value += 0.5f;
+        PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 250);
         xp = PlayerPrefs.GetInt("playerXP");
         int level = xp / 500;
         if ((xp / 500) > PlayerPrefs.GetInt("playerLevel"))

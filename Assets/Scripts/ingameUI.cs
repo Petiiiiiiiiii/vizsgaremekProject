@@ -79,7 +79,7 @@ public class ingameUI : MonoBehaviour
     IEnumerator showObjectives()
     {
         questPanel.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         questPanel.SetActive(false);
     }
 

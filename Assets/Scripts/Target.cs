@@ -20,6 +20,8 @@ public class Target : MonoBehaviour
 
     CapsuleCollider[] colliders;
 
+    public GameObject ammoBoxPrefab;
+
     private void Start()
     {
         colliders = GetComponentsInChildren<CapsuleCollider>();
@@ -35,7 +37,7 @@ public class Target : MonoBehaviour
         currentHealth -= amount;
 
         slider.value = currentHealth / maxHealth;
-        hpText.text = $"{currentHealth}/{maxHealth}";
+        hpText.text = $"{Mathf.Round(currentHealth)}/{maxHealth}";
 
         if (currentHealth < 0) 
         {
@@ -60,6 +62,7 @@ public class Target : MonoBehaviour
         }
 
         Debug.Log("xp: " + PlayerPrefs.GetInt("playerXP") + " xp");
+        Instantiate(ammoBoxPrefab, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z),Quaternion.Euler(-90f,0f,0f));
         Destroy(gameObject);
         FindObjectOfType<ingameUI>().UpdateEnemyCount();
         GameObject.Find("GameManager").GetComponent<GameManager>().kills += 1;
