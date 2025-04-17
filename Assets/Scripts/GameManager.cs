@@ -34,6 +34,15 @@ public class GameManager : MonoBehaviour
         }
 
         Application.targetFrameRate = refreshRate;
+
+        if (SceneManager.GetActiveScene().name.Contains("Map2"))
+        {
+            kills = nextLevel.kills;
+            this.GetComponent<GameTimer>().elapsedTime = nextLevel.timeInSeconds;
+            GameObject.Find(player).GetComponent<HealthSystem>().currentHealth = nextLevel.currentHP;
+            GameObject.Find(player).GetComponent<EquippedWeapon>().weapon.currentMag = nextLevel.magAmmo;
+            GameObject.Find(player).GetComponent<EquippedWeapon>().weapon.allAmmo = nextLevel.allAmmo;
+        }
     }
     private void Update()
     {
