@@ -180,4 +180,9 @@ public class LobbyHandler : MonoBehaviour
         yield return new WaitForSeconds(2f);
         wrongWeaponType.SetActive(false);
     }
+
+    public void OpenLink() 
+    {
+        Application.OpenURL("http://localhost:7000/index.html");
+    }
 }

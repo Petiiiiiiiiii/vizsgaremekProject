@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -42,7 +43,18 @@ public class GameManager : MonoBehaviour
             GameObject.Find(player).GetComponent<HealthSystem>().currentHealth = nextLevel.currentHP;
             GameObject.Find(player).GetComponent<EquippedWeapon>().weapon.currentMag = nextLevel.magAmmo;
             GameObject.Find(player).GetComponent<EquippedWeapon>().weapon.allAmmo = nextLevel.allAmmo;
+            GameObject.Find("XP_slider").GetComponent<Slider>().value = nextLevel.expSliderValue;
         }
+        else if (SceneManager.GetActiveScene().name.Contains("Map3")) 
+        {
+            kills = gotoBossfight.kills;
+            this.GetComponent<GameTimer>().elapsedTime = gotoBossfight.timeInSeconds;
+            GameObject.Find(player).GetComponent<HealthSystem>().currentHealth = gotoBossfight.currentHP;
+            GameObject.Find(player).GetComponent<EquippedWeapon>().weapon.currentMag = gotoBossfight.magAmmo;
+            GameObject.Find(player).GetComponent<EquippedWeapon>().weapon.allAmmo = 50000;
+            GameObject.Find("XP_slider").GetComponent<Slider>().value = gotoBossfight.expSliderValue;
+        }
+
     }
     private void Update()
     {

@@ -13,7 +13,7 @@ public class PickUpAmmo : MonoBehaviour
         }
         else 
         {
-            other.GetComponent<EquippedWeapon>().weapon.allAmmo += 10;
+            other.GetComponent<EquippedWeapon>().weapon.allAmmo += 30;
             Destroy(ammoboxCanvas);
         }
     }

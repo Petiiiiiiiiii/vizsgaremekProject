@@ -47,6 +47,8 @@ public class LoginController : MonoBehaviour
         if (www.result != UnityWebRequest.Result.Success)
         {
             StartCoroutine(Warning("Something went wrong, try again later!", false));
+            Debug.Log(www.result);
+            Debug.Log(www.responseCode);
         }
         else
         {
@@ -57,6 +59,7 @@ public class LoginController : MonoBehaviour
                     var player = JsonConvert.DeserializeObject<PlayerModel>(www.downloadHandler.text);
                     PlayerPrefs.SetString("Username", player.username);
                     PlayerPrefs.SetInt("playerLevel", player.level);
+                    PlayerPrefs.SetInt("playerXP", player.level * 500);
                     PlayerPrefs.SetInt("Permission", player.permission);
                     PlayerPrefs.SetInt("SP", player.sp);
                     PlayerPrefs.SetInt("playerID", player.playerId);

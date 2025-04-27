@@ -6,24 +6,66 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Regiser-Login/Login.unity
+    path: Assets/Scenes/Login.unity
     guid: c68adb743d517984385fe6a6e9f1aaf9
   - enabled: 1
-    path: Assets/Scenes/Regiser-Login/Register.unity
+    path: Assets/Scenes/Register.unity
     guid: 697e5dae2fc393242ad5e40ccb92bc04
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/Scenes/Map1-AR-Hard.unity
-    guid: bc2e5672273b50848874a7a844d47d5b
   - enabled: 1
-    path: Assets/Scenes/Map1-SMG-Easy.unity
+    path: Assets/Scenes/EASY/SMG/Map1-SMG-Easy.unity
     guid: 5bd6accf52902fc4da8c3bc36ee7cff6
   - enabled: 1
-    path: Assets/Scenes/Map1-AR-Easy.unity
+    path: Assets/Scenes/EASY/SMG/Map2-SMG-Easy.unity
+    guid: 0a6cc9a46f46dce4b95b36a4aaa4a759
+  - enabled: 1
+    path: Assets/Scenes/EASY/SMG/Map3-SMG-Easy.unity
+    guid: d53505bb82759bb4ab8f907366d3874b
+  - enabled: 1
+    path: Assets/Scenes/EASY/AR/Map1-AR-Easy.unity
     guid: 4c4b4f28742167141bc80e43f2af6c35
   - enabled: 1
-    path: Assets/Scenes/Map2-AR-Easy.unity
+    path: Assets/Scenes/EASY/AR/Map2-AR-Easy.unity
     guid: c59bb4c738314b0418f4f3aab182e497
+  - enabled: 1
+    path: Assets/Scenes/EASY/AR/Map3-AR-Easy.unity
+    guid: 616554d962476114ba8810c8402e4fce
+  - enabled: 1
+    path: Assets/Scenes/MEDIUM/SMG/Map1-SMG-Medium.unity
+    guid: 2e41533c449981a47afd6615509ffdb3
+  - enabled: 1
+    path: Assets/Scenes/MEDIUM/SMG/Map2-SMG-Medium.unity
+    guid: c166f790c1e1cba499cfbe6bdf3d99c7
+  - enabled: 1
+    path: Assets/Scenes/MEDIUM/SMG/Map3-SMG-Medium.unity
+    guid: 05a86770b92e497409b332f968325a4b
+  - enabled: 1
+    path: Assets/Scenes/MEDIUM/AR/Map1-AR-Medium.unity
+    guid: 9ee3f52bdff6fe747a0fb72276eb638a
+  - enabled: 1
+    path: Assets/Scenes/MEDIUM/AR/Map2-AR-Medium.unity
+    guid: 526c4d13a3899e24085690cd510b670d
+  - enabled: 1
+    path: Assets/Scenes/MEDIUM/AR/Map3-AR-Medium.unity
+    guid: 83e545555b402fa46b1f4a477aaa31bd
+  - enabled: 1
+    path: Assets/Scenes/HARD/SMG/Map1-SMG-Hard.unity
+    guid: 9486c5f76d0ed894bacfb076f1c27445
+  - enabled: 1
+    path: Assets/Scenes/HARD/SMG/Map2-SMG-Hard.unity
+    guid: 91accb0041b12c94ca7c3272effdddc7
+  - enabled: 1
+    path: Assets/Scenes/HARD/SMG/Map3-SMG-Hard.unity
+    guid: 963555f94184c514689baf2dedcb72f4
+  - enabled: 1
+    path: Assets/Scenes/HARD/AR/Map1-AR-Hard.unity
+    guid: 723fc0d9c6fd2574283701b0e9cfbb90
+  - enabled: 1
+    path: Assets/Scenes/HARD/AR/Map2-AR-Hard.unity
+    guid: 45fe033a3a34b594db57e2c14e5beb14
+  - enabled: 1
+    path: Assets/Scenes/HARD/AR/Map3-AR-Hard.unity
+    guid: 5d8f3b9bf0f5c514e98405bd4e4c3b97
   m_configObjects: {}

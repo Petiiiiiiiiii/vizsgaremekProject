@@ -212,7 +212,7 @@ public class AR : Weapon
             yield break;
 
         isReloading = true;
-        animator.SetTrigger("Reload");
+        animator.SetTrigger("Reload-AR");
         reloadAudio.Play();
 
         yield return new WaitForSeconds(2f);

@@ -3,27 +3,45 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ExperienceSys : MonoBehaviour
 {
     public GameObject levelUPtext;
     private int xp;
-
+    private float xpFloat;
     public Slider xpSlider;
+
     private void Start()
     {
-        xp = PlayerPrefs.GetInt("playerLevel") * 500;
-        PlayerPrefs.SetInt("playerXP", xp);
+        xp = PlayerPrefs.GetInt("playerXP");
+        xpFloat = PlayerPrefs.GetInt("playerXP");
+        xpSlider.value = (xpFloat / 500) - (int)(xpFloat / 500);
     }
     public void enemyKill() 
     {
-        xpSlider.value += 0.1f;
-        PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 50);
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName.Contains("Easy"))
+        {
+            xpSlider.value += 0.04f;
+            PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 20);
+        }
+        else if (sceneName.Contains("Medium"))
+        {
+            xpSlider.value += 0.1f;
+            PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 50);
+        }
+        else if (sceneName.Contains("Hard")) 
+        {
+            xpSlider.value += 0.2f;
+            PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 100);
+        }
         xp = PlayerPrefs.GetInt("playerXP");
         int level = xp / 500;
         if((xp / 500) > PlayerPrefs.GetInt("playerLevel")) 
         {
+            PlayerPrefs.SetInt("SP", PlayerPrefs.GetInt("SP") + 1);
             StartCoroutine(levelUP());
             StartCoroutine(levelSave(level));
         }
@@ -38,12 +56,27 @@ public class ExperienceSys : MonoBehaviour
     }
     public void bossKill() 
     {
-        xpSlider.value += 0.5f;
-        PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 250);
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName.Contains("Easy"))
+        {
+            xpSlider.value += 0.16f;
+            PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 80);
+        }
+        else if (sceneName.Contains("Medium"))
+        {
+            xpSlider.value += 0.3f;
+            PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 150);
+        }
+        else if (sceneName.Contains("Hard"))
+        {
+            xpSlider.value += 0.5f;
+            PlayerPrefs.SetInt("playerXP", PlayerPrefs.GetInt("playerXP") + 250);
+        }
         xp = PlayerPrefs.GetInt("playerXP");
         int level = xp / 500;
         if ((xp / 500) > PlayerPrefs.GetInt("playerLevel"))
         {
+            PlayerPrefs.SetInt("SP",PlayerPrefs.GetInt("SP") + 1);
             StartCoroutine(levelUP());
             StartCoroutine(levelSave(level));
         }

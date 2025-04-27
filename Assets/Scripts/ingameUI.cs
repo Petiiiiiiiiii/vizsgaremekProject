@@ -35,7 +35,7 @@ public class ingameUI : MonoBehaviour
             StartCoroutine(showObjectives());
         }
 
-        if (GameObject.Find("GameManager").GetComponent<GameManager>().hasKey) 
+        if (GameObject.Find("GameManager").GetComponent<GameManager>().hasKey && SceneManager.GetActiveScene().name.Contains("Map1")) 
         {
             secondObjective.fontStyle = FontStyles.Strikethrough;
             secondObjective.color = Color.black;
@@ -59,7 +59,7 @@ public class ingameUI : MonoBehaviour
 
         remainingEnemies.text = "Enemies Left: " + enemyCount;
 
-        if (enemyCount == 0) 
+        if (enemyCount == 0 && (SceneManager.GetActiveScene().name.Contains("Map1") || SceneManager.GetActiveScene().name.Contains("Map2"))) 
         {
             firstObjective.fontStyle = FontStyles.Strikethrough;
             firstObjective.color = Color.black;
